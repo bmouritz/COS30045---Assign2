@@ -21,24 +21,33 @@ body{
     background-size: cover;
 }
 
+#headerbacking{
+    width: 50%;
+    height: 30%;
+    margin: auto;
+    background-color: #111111af;
+    text-align: center;
+    top: 0;
+    transform: translateY(50%);
+}
+
 h1 {
     color: white;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-weight: bold;
     font-size: 5rem;
     text-align: center;
-    top: 0;
-    transform: translateY(50%);
 }
 
 footer {
+    background-color: bisque;
+    height: 6rem;
+    transform: translateY(50%);
+}
+
+#footertext{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-weight: bold;
-    height: 5rem;
-    padding: 2rem;
-    margin: 2rem;
     text-align: center;
-    background-color: bisque;
-    top: 0;
-    transform: translateY(50%);
+    padding-top:2rem;
 }
