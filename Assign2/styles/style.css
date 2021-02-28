@@ -68,7 +68,7 @@ body{
 
 
 footer {
-    background-color: bisque;
+    background-color: #111111;
     height: 6rem;
     transform: translateY(50%);
 }
@@ -78,4 +78,5 @@ footer {
     font-weight: bold;
     text-align: center;
     padding-top:2rem;
+    color: white;
 }
