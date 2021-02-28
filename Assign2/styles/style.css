@@ -8,36 +8,64 @@ description: [To apply CSS to the following pages: Assign2.html]
 
 body{
     margin: 0;
+    width:100%;
 }
 
 #header{
     background-image: url("../../Assign2/media/header.jpg");
     width: 100%;
     height: 20rem;
-    position:absolute;
     top:0;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    display: block;
 }
-
+#headerbackingaccent{
+    width: 50%;
+    height: 30%;
+    margin: auto;
+    background-color: #ffffffaf;
+    text-align: center;
+    top: 0;
+    transform: translate(-1%, 90%);
+}
 #headerbacking{
     width: 50%;
     height: 30%;
     margin: auto;
-    background-color: #111111af;
+    background-color: #111111df;
     text-align: center;
     top: 0;
-    transform: translateY(50%);
+    transform: translate(0%, 0%);
 }
 
-h1 {
+
+
+#h1top {
     color: white;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-weight: bold;
     font-size: 5rem;
+    display: inline-block;
     text-align: center;
+    transform: translateY(-60%);
 }
+
+#menubacking{
+    display: inline-block;
+    width: 100%;
+    height: 30%;
+    background-color: #111111;
+    position: relative;
+}
+
+#menutext{
+    color: white;
+    text-align: center;
+    font-size: 2rem;
+}
+
 
 footer {
     background-color: bisque;
