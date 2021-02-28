@@ -1,0 +1,44 @@
+/*
+filename: [style.css]
+author: [Benjamin Mouritz]
+created: [23.02.2021]
+last modified: [23.02.2021]
+description: [To apply CSS to the following pages: Assign2.html]
+*/
+
+body{
+    margin: 0;
+}
+
+#header{
+    background-image: url("../../Assign2/media/header.jpg");
+    width: 100%;
+    height: 20rem;
+    position:absolute;
+    top:0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+h1 {
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 5rem;
+    text-align: center;
+    top: 0;
+    transform: translateY(50%);
+}
+
+footer {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+    height: 5rem;
+    padding: 2rem;
+    margin: 2rem;
+    text-align: center;
+    background-color: bisque;
+    top: 0;
+    transform: translateY(50%);
+}
