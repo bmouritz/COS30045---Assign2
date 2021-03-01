@@ -67,8 +67,31 @@ body{
     font-size: 2rem;
 }
 
+h2{
+    color:#111;
+    text-align: center;
+    font-size: 3rem;
+}
+
+#homebodyp{
+    padding-left:5rem;
+    padding-top: 0;
+    font-size: 1.5rem;
+    width: 45%;
+    float:left;
+}
+
+#imgbodyp{
+    padding-top: 2rem;
+    width: 45%;
+    float:right;
+    height: 50%;
+    padding-right: 5rem;
+}
+
 
 footer {
+    clear:both;
     background-color: #111111;
     height: 6rem;
     transform: translateY(50%);
