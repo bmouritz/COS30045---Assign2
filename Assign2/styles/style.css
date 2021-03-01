@@ -9,6 +9,7 @@ description: [To apply CSS to the following pages: Assign2.html]
 body{
     margin: 0;
     width:100%;
+    background-color: #F4E8C1;
 }
 
 #header{
@@ -25,7 +26,7 @@ body{
     width: 50%;
     height: 30%;
     margin: auto;
-    background-color: #ffffffaf;
+    background-color: #F4E8C1af;
     text-align: center;
     top: 0;
     transform: translate(-1%, 90%);
