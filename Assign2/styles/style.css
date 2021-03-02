@@ -12,6 +12,18 @@ body{
     background-color: #F4E8C1;
 }
 
+p{
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+#whitelink{
+    text-decoration: none;
+}
+
+#whitelink:visited {
+    color: white;
+}
+
 #header{
     background-image: url("../../Assign2/media/header.jpg");
     width: 100%;
@@ -41,8 +53,6 @@ body{
     transform: translate(0%, 0%);
 }
 
-
-
 #h1top {
     color: white;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -62,19 +72,22 @@ body{
 }
 
 #menutext{
+    font-family: 'Oswald', sans-serif; 
     color: white;
     text-align: center;
     font-size: 2rem;
 }
 
 h2{
+    font-family: 'Oswald', sans-serif;
     color:#111;
     text-align: center;
     font-size: 3rem;
 }
 
 #homebodyp{
-    padding-left:5rem;
+    padding-left:4rem;
+    padding-right: 1rem;
     padding-top: 0;
     font-size: 1.5rem;
     width: 45%;
@@ -83,24 +96,32 @@ h2{
 
 #imgbodyp{
     padding-top: 2rem;
+    padding-left:1rem;
     width: 45%;
     float:right;
     height: 50%;
-    padding-right: 5rem;
+    padding-right: 4rem;
 }
 
+#divdiv{
+	height: 80%; 
+	width: 50%; 
+	display: block; 
+	margin: 0 auto;
+}
 
 footer {
     clear:both;
     background-color: #111111;
-    height: 6rem;
+    height: auto;
     transform: translateY(50%);
+    padding: 2rem;
 }
 
 #footertext{
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Oswald', sans-serif; 
     font-weight: bold;
     text-align: center;
-    padding-top:2rem;
     color: white;
+    font-size: 2rem;
 }
