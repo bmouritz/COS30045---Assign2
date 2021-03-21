@@ -125,3 +125,19 @@ footer {
     color: white;
     font-size: 2rem;
 }
+
+.line{
+    fill:none;
+    stroke: slategray;
+    stroke-width: 1;
+}
+
+.line2{
+    fill:none;
+    stroke: black;
+    stroke-width: 1;
+}
+
+#wasteChart{
+    background-color: #F4E8C1;
+}
