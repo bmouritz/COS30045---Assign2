@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="description"	content="Data Visualisation Exercise"/>
+  <meta name="keywords"	content="HTML/CSS/D3"/>
+  <meta name="author"	content="Shane Turville"/>
+  <title>Line Chart Test</title>
+  <style type="text/css">
+      .y1Line {
+        fill: none;
+        stroke: green;
+        stroke-width: 1;
+      }
+
+      .y2Line {
+        fill: none;
+        stroke: red;
+        stroke-width: 1;
+      }
+
+      #greenPara {
+        color: green;
+      }
+
+      #redPara {
+        color: red;
+      }
+    </style>
+<script src="https://d3js.org/d3.v6.min.js"></script>
+<script src="scripts/functions.js"></script>
+<script src="scripts/line_chart_test.js"></script>
+
+<body>
+
+  <h1>Line Chart test</h1>
+
+  <p id="chart" style="font-size: 12px; font-weight: bold; font-family: Helvetica;"></p>
+
+  <p id="greenPara">Green line uses left y axis</p>
+  <p id="redPara">Red line uses right y axis</p>
+
+<footer>COS300045 Data Visualisation<br/>By Shane Turville</footer>
+</body>
+</html>

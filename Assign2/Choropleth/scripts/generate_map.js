@@ -1,4 +1,4 @@
-function generateMap(dataString, color) {
+function generateMap(dataString, stateColour, cityColour) {
 
   var w = 500;
   var h = 500;
@@ -16,16 +16,29 @@ function generateMap(dataString, color) {
   .attr("width",w)
   .attr("height",h);
 
+  //Not yet working - keep chipping away at
+  var legend = svg.selectAll('rect')
+      .data(stateColour.domain().reverse())
+      .enter()
+      .append('rect')
+      .attr("x", w - 780)
+      .attr("y", function(d, i) {
+         return i * 20;
+      })
+     .attr("width", 10)
+     .attr("height", 10)
+     .style("fill", stateColour);
+
   //Load in STATE_NAME data
   d3.csv(dataString, function(data) {
 
-    //Set input domain for color scale
+    //Set input domain for color scale - NOT WORKING FOR SOME REASON
     // color.domain([
     // 	d3.min(data, function(d) { return d.AMOUNT; }),
     // 	d3.max(data, function(d) { return d.AMOUNT; })
     // ]);
 
-    color.domain([0,25]); //Need to figure out how to do this dynamically, like above.
+    stateColour.domain([0,25]); //Need to figure out how to do this dynamically, like above.
 
     //Load in GeoJSON data
     d3.json("./data/au-states.geojson", function(json) {
@@ -68,7 +81,7 @@ function generateMap(dataString, color) {
 
         if (AMOUNT) {
           //If AMOUNT exists…
-          return color(AMOUNT);
+          return stateColour(AMOUNT);
         } else {
           //If AMOUNT is undefined…
           return "#ccc";
@@ -76,27 +89,22 @@ function generateMap(dataString, color) {
       });
 
       //Load in cities data
-      // d3.csv("./data/VIC_city.csv", function(data) {
-      // 	svg.selectAll("circle")
-      // 	.data(data)
-      // 	.enter()
-      // 	.append("circle")
-      // 	.attr("cx", function(d) {
-      // 		return projection([d.lon, d.lat])[0];
-      // 	})
-      // 	.attr("cy", function(d) {
-      // 		return projection([d.lon, d.lat])[1];
-      // 	})
-      // 	.attr("r", 3)
-      // 	.style("fill", "red")
-      // 	.style("stroke", "gray")
-      // 	.style("stroke-width", 0.25)
-      // 	.style("opacity", 0.75)
-      // 	.append("title")			//Simple tooltip
-      // 	.text(function(d) {
-      // 		return d.place + ": Pop. " + formatAsThousands(d.population);
-      // 	})
-      // });
+      d3.csv("./data/Aus_city_data.csv", function(data) {
+        svg.selectAll("circle")
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("cx", function(d) {
+          return projection([d.lon, d.lat])[0];
+        })
+        .attr("cy", function(d) {
+          return projection([d.lon, d.lat])[1];
+        })
+        .attr("r", 3)
+        .style("fill", cityColour)
+        .style("stroke", "black")
+        .style("stroke-width", 1);
+      });
     });
   });
 }

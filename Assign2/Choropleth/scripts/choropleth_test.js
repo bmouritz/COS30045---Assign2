@@ -8,18 +8,18 @@ function init() {
 	// Set up page initially
 	var toggle = false;
 	d3.select("#toggBtn").text("Orange");
-	generateMap("./data/aus_dummy_data1.csv", colorGreen);
+	generateMap("./data/aus_dummy_data1.csv", colorGreen,"orange");
 
 	var changeData = function() {
 		toggle = !toggle; // sets toggle
 		if(toggle){
 			d3.select("#chart").selectAll('svg').remove();
 			d3.select("#toggBtn").text("Green");
-			generateMap("./data/aus_dummy_data2.csv",colorOrange);
+			generateMap("./data/aus_dummy_data2.csv",colorOrange,"green");
 		} else {
 			d3.select("#chart").selectAll('svg').remove();
 			d3.select("#toggBtn").text("Orange");
-			generateMap("./data/aus_dummy_data1.csv",colorGreen);
+			generateMap("./data/aus_dummy_data1.csv",colorGreen,"orange");
 		}
 	};
 
