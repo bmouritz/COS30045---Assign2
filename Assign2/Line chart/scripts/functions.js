@@ -67,11 +67,13 @@ function lineChart(dataset) {
 
   svg.append("g")
   .attr("class", "axis")
+  .attr("color","green")
   .attr("transform", "translate(" + padding + ",0)")
   .call(y1Axis);
 
   svg.append("g")
   .attr("class", "axis")
+  .attr("color","red")
   .attr("transform", "translate(" + (600-15) + ",0)")
   .call(y2Axis);
 }
