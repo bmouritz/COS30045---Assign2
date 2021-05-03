@@ -1,4 +1,4 @@
-Country,Alpha-2 code,Alpha-3 code,Numeric code,Latitude (average),Longitude (average),Data
+Country,Alpha_2_code,Alpha_3_code,Numeric code,Latitude (average),Longitude (average),AMOUNT
 Afghanistan, AF, AFG,4,33,65,60
 Albania, AL, ALB,8,41,20,41
 Algeria, DZ, DZA,12,28,3,59
@@ -38,7 +38,7 @@ Burkina Faso, BF, BFA,854,13,-2,36
 Burundi, BI, BDI,108,-3.5,30,66
 Cambodia, KH, KHM,116,13,105,54
 Cameroon, CM, CMR,120,6,12,37
-Canada, CA, CAN,124,60,-95,90
+Canada, CA, CAN,124,60,-95,45
 Cape Verde, CV, CPV,132,16,-24,2
 Cayman Islands, KY, CYM,136,19.5,-80.5,40
 Central African Republic, CF, CAF,140,7,21,12
@@ -49,8 +49,8 @@ Christmas Island, CX, CXR,162,-10.5,105.6667,91
 Cocos (Keeling) Islands, CC, CCK,166,-12.5,96.8333,88
 Colombia, CO, COL,170,4,-72,37
 Comoros, KM, COM,174,-12.1667,44.25,43
-Congo, CG, COG,178,-1,15,54
-"Congo, the Democratic Republic of the", CD, COD,180,0,25,2
+"Republic of Congo", CG, COG,178,-1,15,54
+"Democratic Republic of the Congo", CD, COD,180,0,25,2
 Cook Islands, CK, COK,184,-21.2333,-159.7667,99
 Costa Rica, CR, CRI,188,10,-84,3
 Côte d'Ivoire, CI, CIV,384,8,-5,78
@@ -103,7 +103,7 @@ Hungary, HU, HUN,348,47,20,60
 Iceland, IS, ISL,352,65,-18,19
 India, IN, IND,356,20,77,27
 Indonesia, ID, IDN,360,-5,120,91
-"Iran, Islamic Republic of", IR, IRN,364,32,53,68
+Iran, IR, IRN,364,32,53,68
 Iraq, IQ, IRQ,368,33,44,72
 Ireland, IE, IRL,372,53,-8,13
 Isle of Man, IM, IMN,833,54.23,-4.55,43
@@ -146,7 +146,7 @@ Mauritius, MU, MUS,480,-20.2833,57.55,73
 Mayotte, YT, MYT,175,-12.8333,45.1667,47
 Mexico, MX, MEX,484,23,-102,5
 "Micronesia, Federated States of", FM, FSM,583,6.9167,158.25,80
-"Moldova, Republic of", MD, MDA,498,47,29,45
+Moldova, MD, MDA,498,47,29,45
 Monaco, MC, MCO,492,43.7333,7.4,45
 Mongolia, MN, MNG,496,46,105,85
 Montenegro, ME, MNE,499,42,19,2
@@ -200,7 +200,7 @@ San Marino, SM, SMR,674,43.7667,12.4167,83
 Sao Tome and Principe, ST, STP,678,1,7,12
 Saudi Arabia, SA, SAU,682,25,45,30
 Senegal, SN, SEN,686,14,-14,1
-Serbia, RS, SRB,688,44,21,61
+"Republic of Serbia", RS, SRB,688,44,21,61
 Seychelles, SC, SYC,690,-4.5833,55.6667,52
 Sierra Leone, SL, SLE,694,8.5,-11.5,8
 Singapore, SG, SGP,702,1.3667,103.8,69
@@ -219,11 +219,11 @@ Svalbard and Jan Mayen, SJ, SJM,744,78,20,75
 Swaziland, SZ, SWZ,748,-26.5,31.5,83
 Sweden, SE, SWE,752,62,15,99
 Switzerland, CH, CHE,756,47,8,48
-Syrian Arab Republic, SY, SYR,760,35,38,43
+Syria, SY, SYR,760,35,38,43
 "Taiwan, Province of China", TW, TWN,158,23.5,121,42
 Taiwan, TW, TWN,158,23.5,121,3
 Tajikistan, TJ, TJK,762,39,71,92
-"Tanzania, United Republic of", TZ, TZA,834,-6,35,30
+"United Republic of Tanzania", TZ, TZA,834,-6,35,30
 Thailand, TH, THA,764,15,100,63
 Timor-Leste, TL, TLS,626,-8.55,125.5167,53
 Togo, TG, TGO,768,8,1.1667,2
@@ -239,7 +239,7 @@ Uganda, UG, UGA,800,1,32,16
 Ukraine, UA, UKR,804,49,32,67
 United Arab Emirates, AE, ARE,784,24,54,68
 United Kingdom, GB, GBR,826,54,-2,14
-United States, US, USA,840,38,-97,83
+United States of America, US, USA,840,38,-97,83
 United States Minor Outlying Islands, UM, UMI,581,19.2833,166.6,62
 Uruguay, UY, URY,858,-33,-56,9
 Uzbekistan, UZ, UZB,860,41,64,19
