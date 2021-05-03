@@ -116,11 +116,23 @@ function generateMap(dataString, countryColour) {
             .transition()
             .duration(100)
     		})
+        .on("click",function(event, d){ // on click tooltip
+          let pos = d3.select(this).node().getBoundingClientRect();
 
+          d3.select("#chart")
+          .append("div")
+          .style("position", "absolute")
+          .style("background-color", "white")
+          .style("border", "solid")
+          .style("border-width", "1px")
+          .style("border-radius", "10px")
+          .style("padding", "10px")
+          .html("<p>Country: <em>" + event.properties.ADMIN + "</em></p><p>Amount: <em>" + event.properties.AMOUNT + "</em></p>")
+          .style('left', `${pos['x']}px`)
+          .style('top',  `${pos['y']}px`);
+        })
       .style("fill", function(d) {
-
         var AMOUNT = d.properties.AMOUNT; //Get data AMOUNT
-
         if (AMOUNT) {
           return countryColour(AMOUNT); //If AMOUNT exists
         } else {
