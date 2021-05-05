@@ -10,6 +10,11 @@ function init() {
 	// d3.select("#toggBtn").text("Orange");
 	generateMap("./data/global_data_test.csv", colorGreen,"orange");
 
+	d3.select("button")
+	  .on("click", function() {
+	    alert("test");
+	  }
+
 	// var changeData = function() {
 	// 	toggle = !toggle; // sets toggle
 	// 	if(toggle){

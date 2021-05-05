@@ -84,6 +84,9 @@ function generateMap(dataString, countryColour) {
         }
       }
 
+      var selected = '';
+      var counter = 0;
+
       //Bind data and create one path per GeoJSON feature
       svg.selectAll("path")
       .data(json.features)
@@ -93,44 +96,49 @@ function generateMap(dataString, countryColour) {
       .style("stroke", "black")
       .style("stroke-width", 0.10)
       .attr("class", function(d){ return "Country" } )
-      .on("mouseover",function(event, d){ // change to orange on mouse over
+      .on("mouseover",function(event, d){ // change to red border on mouse over
         d3.selectAll(".Country")
-          .transition()
-          .duration(100)
-          .style("opacity", .5)
+        .transition()
+        .duration(100)
+        .style("opacity", .5)
         d3.select(this)
-          .transition()
-          .duration(100)
-          .style("opacity", 1)
-          .style("stroke", "red")
-          .style("stroke-width", 1)
-    		})
-    		.on("mouseout",function(event, d){ // change back on mouse out
-          d3.selectAll(".Country")
-            .transition()
-            .duration(100)
-            .style("opacity", 0.8)
-            .style("stroke", "black")
-            .style("stroke-width", 0.10)
-          d3.select(this)
-            .transition()
-            .duration(100)
-    		})
-        .on("click",function(event, d){ // on click tooltip
-          let pos = d3.select(this).node().getBoundingClientRect();
+        .transition()
+        .duration(100)
+        .style("opacity", 1)
+        .style("stroke", "red")
+        .style("stroke-width", 1);
+      })
+      .on("mouseout",function(event, d){ // change back on mouse out
+        d3.selectAll(".Country")
+        .transition()
+        .duration(100)
+        .style("opacity", 0.8)
+        .style("stroke", "black")
+        .style("stroke-width", 0.10)
+        d3.select(this)
+        .transition()
+        .duration(100);
+      })
+      .on("click",function(event, d){ // on click tooltip
+        var mouse = d3.mouse(this); // Create mouse object
+
+        selected = event.properties.ADMIN;
 
           d3.select("#chart")
           .append("div")
+          .attr("id", "tooltip" + ++counter)
+          .attr("class", "tooltip")
           .style("position", "absolute")
-          .style("background-color", "white")
+          .style("background-color", "rgb(255,255,255,0.75)")
           .style("border", "solid")
           .style("border-width", "1px")
-          .style("border-radius", "10px")
-          .style("padding", "10px")
-          .html("<p>Country: <em>" + event.properties.ADMIN + "</em></p><p>Amount: <em>" + event.properties.AMOUNT + "</em></p>")
-          .style('left', `${pos['x']}px`)
-          .style('top',  `${pos['y']}px`);
-        })
+          .style("border-radius", "5px")
+          .style("padding", "3px")
+          .html("<p>Country: <span style=\"color: green;\"><em>" + event.properties.ADMIN + "</em></span></p>" +
+          "<p>Amount: <span style=\"color: green;\"><em>" + event.properties.AMOUNT + "</em></span></p>") // Tooltip text
+          .style('left', mouse[0] + `px`) // Use mouse x coordinates to draw text box
+          .style('top', (mouse[1] + 20) + `px`); // Use mouse y coordinates to draw text box
+      })
       .style("fill", function(d) {
         var AMOUNT = d.properties.AMOUNT; //Get data AMOUNT
         if (AMOUNT) {
@@ -141,4 +149,4 @@ function generateMap(dataString, countryColour) {
       });
     });
   });
-}
+};
