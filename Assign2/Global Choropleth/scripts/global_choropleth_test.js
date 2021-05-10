@@ -13,7 +13,7 @@ function init() {
 	d3.select("button")
 	  .on("click", function() {
 	    alert("test");
-	  }
+	  });
 
 	// var changeData = function() {
 	// 	toggle = !toggle; // sets toggle

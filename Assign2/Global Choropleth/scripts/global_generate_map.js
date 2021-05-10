@@ -28,26 +28,26 @@ function generateMap(dataString, countryColour) {
   // .scale(w/2);
 
   var path = d3.geoPath()
-  .projection(projection);
+    .projection(projection);
 
   var svg = d3.select("#chart")
-  .append("svg")
-  .attr("width",w)
-  .attr("height",h)
-  .style("opacity", 0.8);
+    .append("svg")
+    .attr("width",w)
+    .attr("height",h)
+    .style("opacity", 0.8);
 
   //Not yet working - keep chipping away at
   var legend = svg.selectAll('rect')
-  .data(countryColour.domain().reverse())
-  .enter()
-  .append('rect')
-  .attr("x", w - 780)
-  .attr("y", function(d, i) {
-    return i * 20;
-  })
-  .attr("width", 10)
-  .attr("height", 10)
-  .style("fill", countryColour);
+    .data(countryColour.domain().reverse())
+    .enter()
+    .append('rect')
+    .attr("x", w - 780)
+    .attr("y", function(d, i) {
+      return i * 20;
+    })
+    .attr("width", 10)
+    .attr("height", 10)
+    .style("fill", countryColour);
 
   //Load in Country data from csv
   d3.csv(dataString, (error, data) => {
@@ -85,68 +85,65 @@ function generateMap(dataString, countryColour) {
       }
 
       var selected = '';
-      var counter = 0;
 
       //Bind data and create one path per GeoJSON feature
       svg.selectAll("path")
-      .data(json.features)
-      .enter()
-      .append("path")
-      .attr("d", path)
-      .style("stroke", "black")
-      .style("stroke-width", 0.10)
-      .attr("class", function(d){ return "Country" } )
-      .on("mouseover",function(event, d){ // change to red border on mouse over
-        d3.selectAll(".Country")
-        .transition()
-        .duration(100)
-        .style("opacity", .5)
-        d3.select(this)
-        .transition()
-        .duration(100)
-        .style("opacity", 1)
-        .style("stroke", "red")
-        .style("stroke-width", 1);
-      })
-      .on("mouseout",function(event, d){ // change back on mouse out
-        d3.selectAll(".Country")
-        .transition()
-        .duration(100)
-        .style("opacity", 0.8)
+        .data(json.features)
+        .enter()
+        .append("path")
+        .attr("d", path)
         .style("stroke", "black")
         .style("stroke-width", 0.10)
-        d3.select(this)
-        .transition()
-        .duration(100);
-      })
-      .on("click",function(event, d){ // on click tooltip
-        var mouse = d3.mouse(this); // Create mouse object
+        .attr("class", function(d){ return "Country" } )
+        .on("mouseover",function(event, d){ // change to red border on mouse over
+          d3.selectAll(".Country")
+        .style("opacity", .5)
+          d3.select(this)
+          .style("opacity", 1)
+          .style("stroke", "red")
+          .style("stroke-width", 1);
+        })
+        .on("mouseout",function(event, d){ // change back on mouse out
+          d3.selectAll(".Country")
+            .style("opacity", 0.8)
+            .style("stroke", "black")
+            .style("stroke-width", 0.10);
 
-        selected = event.properties.ADMIN;
+          //Hide the tooltip 
+          d3.select("#tooltip")
+            .classed("hidden", true );
+        })
+        .on("click",function(event, d){ // on click tooltip
+          var mouse = d3.mouse(this); // Create mouse object
 
-          d3.select("#chart")
-          .append("div")
-          .attr("id", "tooltip" + ++counter)
-          .attr("class", "tooltip")
-          .style("position", "absolute")
-          .style("background-color", "rgb(255,255,255,0.75)")
-          .style("border", "solid")
-          .style("border-width", "1px")
-          .style("border-radius", "5px")
-          .style("padding", "3px")
-          .html("<p>Country: <span style=\"color: green;\"><em>" + event.properties.ADMIN + "</em></span></p>" +
-          "<p>Amount: <span style=\"color: green;\"><em>" + event.properties.AMOUNT + "</em></span></p>") // Tooltip text
-          .style('left', mouse[0] + `px`) // Use mouse x coordinates to draw text box
-          .style('top', (mouse[1] + 20) + `px`); // Use mouse y coordinates to draw text box
-      })
-      .style("fill", function(d) {
-        var AMOUNT = d.properties.AMOUNT; //Get data AMOUNT
-        if (AMOUNT) {
-          return countryColour(AMOUNT); //If AMOUNT exists
-        } else {
-          return "#ccc"; //If AMOUNT is undefined
-        }
+          // Getting data variables
+          selected = event.properties.ADMIN;
+          amount = event.properties.AMOUNT;
+          
+          // Set x,y of tooltip and set text of country
+          d3.select("#tooltip") 
+            .style('left', mouse[0] + `px`) // Use mouse x coordinates to draw text box
+            .style('top', (mouse[1] + 20) + `px`) // Use mouse y coordinates to draw text box
+            .select("#country") 
+            .text(selected); 
+
+          // Set text of the amount
+          d3.select("#tooltip")
+            .select("#value")
+            .text(amount);
+
+          //Show the tooltip 
+          d3.select("#tooltip")
+            .classed("hidden", false ); 
+        })
+        .style("fill", function(d) {
+          var AMOUNT = d.properties.AMOUNT; //Get data AMOUNT
+          if (AMOUNT) {
+            return countryColour(AMOUNT); //If AMOUNT exists
+          } else {
+            return "#ccc"; //If AMOUNT is undefined
+          }
+        });
       });
     });
-  });
 };
