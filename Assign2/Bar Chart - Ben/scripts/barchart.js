@@ -2,21 +2,43 @@ function init(){
     var w = 700;
     var h = 500;
     var padding = 20;
-    var dataset = [5,6,7,8,9,10,11,12,13,14,15, 7];
     var sortOrder = false;
+    var dataset;
+    var allYears;
 
-/*		var xScale = d3.scaleBand()
+    d3.csv("../data/Australia Waste.csv").then(function(data){
+      allYears = d3.nest()
+        .key(function(d) { return d.Year; })
+        .entries(data);
+
+      for (var i = 0; i < data.length; i++){
+        var dataYears = data[i].Year;
+        var category = data[i].Category;
+        var ACT = data[i].ACT;
+        var NSW = data[i].NSW;
+        var NT = data[i].NT;
+        var QLD = data[i].Qld;
+        var SA = data[i].SA;
+        var TAS = data[i].Tas;
+        var VIC = data[i].Vic;
+        var WA = data[i].WA;
+      }
+  });
+
+		var xScale = d3.scaleBand()
 		  .domain(d3.range(dataset.length))
 		  .rangeRound([0, w])
 		  .paddingInner(0.5);
-*/
-  var xScale = d3.scaleOrdinal()
-    .domain(dataset)
-    .range(['black', '#ccc', '#ccc']);
 
-		var yScale = d3.scaleLinear()
-		  .domain([0, d3.max(dataset)])
-		  .range([ h, 0]);
+/*  var xScale = d3.scaleOrdinal()
+    .domain(dataset)
+    .range(['black', '#ccc', '#ccc']); */
+
+	var yScale = d3.scaleLinear()
+	  .domain([0, d3.max(dataset)])
+	  .range([ h, 0]);
+
+
 
     // Hover effects and tooltips
     var HoverOn = function(){
@@ -24,7 +46,7 @@ function init(){
         .on("mouseover", function(d, i){
           var xPos = parseFloat(d3.select(this).attr("x")) + parseFloat(d3.select(this).attr("width"))/2 - 10;
           var yPos = parseFloat(d3.select(this).attr("y")) + 20;
-
+          
           d3.select("#tooltip") 
             .style("left", xPos + "px") 
             .style("top", yPos + "px") 
