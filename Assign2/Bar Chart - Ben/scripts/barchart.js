@@ -5,10 +5,14 @@ function init(){
     var dataset = [5,6,7,8,9,10,11,12,13,14,15, 7];
     var sortOrder = false;
 
-		var xScale = d3.scaleBand()
+/*		var xScale = d3.scaleBand()
 		  .domain(d3.range(dataset.length))
 		  .rangeRound([0, w])
 		  .paddingInner(0.5);
+*/
+  var xScale = d3.scaleOrdinal()
+    .domain(dataset)
+    .range(['black', '#ccc', '#ccc']);
 
 		var yScale = d3.scaleLinear()
 		  .domain([0, d3.max(dataset)])
@@ -25,7 +29,7 @@ function init(){
             .style("left", xPos + "px") 
             .style("top", yPos + "px") 
             .select("#value") 
-            .text(i ); 
+            .text(i); 
             
           //Show the tooltip 
           d3.select("#tooltip")
