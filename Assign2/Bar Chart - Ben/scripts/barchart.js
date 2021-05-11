@@ -6,10 +6,6 @@ function init(){
     var dataset = [];
     var allYears;
     var allWaste;
-    var dataYear = [];
-    var dataCategory = [];
-    var dataState = [];
-    var dataTonnes = [];
     var xScale;
     var yScale;
 
@@ -31,6 +27,12 @@ function init(){
 
       // Get grouping of Jurisdiction keys
       allWaste = d3.map(data, function(d){return(d.Category)}).keys();
+
+      // Derived metric - Sums the amount of waste regardless of Year and Waste Type
+      var rollup = d3.nest()
+      .key(function(d) { return d.Jurisdiction; })
+      .rollup(function(v) { return d3.sum(v, function(d) { return d.Tonnes; }); })
+      .entries(dataset);
 
       // Populate dropdown dynamically with grouping of Year data
       d3.select("#year")
@@ -56,22 +58,22 @@ function init(){
         .paddingInner(0.05);
 
       yScale = d3.scaleLinear()
-        .domain([0, d3.max(dataset, function(d){ return d.Tonnes})])
+        .domain([0, d3.max(rollup, function(d){ return d.value})])
         .range([h, 0]);
 
      svg.selectAll("rect")
-        .data(dataset)
+        .data(rollup)
         .enter()
         .append("rect")
         .attr("x", function(d) {
-          return xScale(d.Jurisdiction) + 100;
+          return xScale(d.key) + 100;
         })
         .attr("y", function(d) {
-          return yScale(d.Tonnes) - 10;
+          return yScale(d.value) - 10;
         })
         .attr("width", xScale.bandwidth())
         .attr("height", function(d) {
-          return h - yScale(d.Tonnes);
+          return h - yScale(d.value);
       })
 
       var xAxis = d3.axisBottom().ticks(5).scale(xScale);
@@ -80,32 +82,6 @@ function init(){
       // Adding X and Y axis.
       svg.append("g").attr("transform", "translate(100, "+ (h - 10) +")").call(xAxis);
       svg.append("g").attr("transform", "translate(" + 100 + ", -10)").call(yAxis); 
-    
-
-    // Hover effects and tooltips
-    var HoverOn = function(){
-        svg.selectAll("rect")
-        .on("mouseover", function(d, i){
-          var xPos = parseFloat(d3.select(this).attr("x")) + parseFloat(d3.select(this).attr("width"))/2 - 10;
-          var yPos = parseFloat(d3.select(this).attr("y")) + 20;
-          
-          // Position the tooltip
-          d3.select("#tooltip") 
-            .style("left", xPos + "px") 
-            .style("top", yPos + "px") 
-            .select("#value") 
-            .text(d.Tonnes); 
-            
-          //Show the tooltip 
-          d3.select("#tooltip")
-            .classed("hidden", false ); 
-        }) 
-        .on("mouseout", function () { 
-            //Hide the tooltip 
-            d3.select("#tooltip")
-                .classed("hidden", true );
-        });
-    };
 
     // Sort from biggest to smallest
     var sortBars = function(){
@@ -151,6 +127,30 @@ function init(){
         sortBars();
     });
   });
+      // Hover effects and tooltips
+      var HoverOn = function(){
+        svg.selectAll("rect")
+        .on("mouseover", function(d, i){
+          var xPos = parseFloat(d3.select(this).attr("x")) + parseFloat(d3.select(this).attr("width"))/2 - 10;
+          var yPos = parseFloat(d3.select(this).attr("y")) + 20;
+          
+          // Position the tooltip
+          d3.select("#tooltip") 
+            .style("left", xPos + "px") 
+            .style("top", yPos + "px") 
+            .select("#value") 
+            .text(d.value); 
+            
+          //Show the tooltip 
+          d3.select("#tooltip")
+            .classed("hidden", false ); 
+        }) 
+        .on("mouseout", function () { 
+            //Hide the tooltip 
+            d3.select("#tooltip")
+                .classed("hidden", true );
+        });
+    };
 }
 
 window.onload = init;
