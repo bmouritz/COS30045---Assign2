@@ -140,6 +140,11 @@ function init(){
             .style("top", yPos + "px") 
             .select("#value") 
             .text(d.value); 
+
+          // Position the tooltip
+          d3.select("#tooltip") 
+            .select("#state") 
+            .text(d.key);
             
           //Show the tooltip 
           d3.select("#tooltip")

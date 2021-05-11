@@ -18,10 +18,12 @@
 
         <label for="wasteType">Select waste type:</label>
         <select name="wasteType" id="wasteType">
+            <option value="All">All</option>
         </select>
 
         <label for="year">Select year:</label>
         <select name="year" id="year">
+            <option value="All">All</option>
         </select>
 
         <figure>
@@ -30,7 +32,8 @@
         </figcaption>
     </figure>
         <div id="tooltip" class="hidden">
-            <p><strong>Total Waste Output: </strong><span id="value"></span></p>
+            <p><strong>State: </strong><span id="state"></span></p>
+            <p><strong>Amount: </strong><span id="value"></span></p>
         </div>
         <br/>
         <bf/>
