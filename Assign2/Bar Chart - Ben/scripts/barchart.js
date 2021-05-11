@@ -1,107 +1,105 @@
+// get it drawing on dropdown changes.
+
 function init(){
-    var w = 700;
-    var h = 500;
-    var padding = 20;
-    var sortOrder = false;
-    var dataset = [];
-    var allYears;
-    var allWaste;
-    var xScale;
-    var yScale;
+  var w = 700;
+  var h = 500;
+  var padding = 20;
+  var dataset = [];
+  var allYears;
+  var allWaste;
+  var xScale;
+  var yScale;
+  var yearSelected = document.getElementById("year").value;
+  var wasteSelected = document.getElementById("wasteType").value;
+  var rollup;
 
-    
-    var svg = d3.select("#chart")
-      .append("svg")
-      .attr("width", w + 80)
-      .attr("height", h + 80)
-      .attr("transform", "translate(" + padding + "," + 80 + ")");
-    
-    d3.csv("../data/Australia Waste.csv").then(function(data){
-      dataset = data;
+  // Get the value of Year dropdown dynamically.
+  document.getElementById("year").addEventListener('change', function() {
+    yearSelected = this.value;
+  });
 
-      // Convert tonnes column from String to Int
-      dataset.forEach(function(d) { d.Tonnes = parseInt(d.Tonnes.replace(/,/g, ""))});
+  // Get the value of Waste Type dropdown dynamically.
+  document.getElementById("wasteType").addEventListener('change', function() {
+    wasteSelected = this.value;
+  });
+
+  var svg = d3.select("#chart")
+    .append("svg")
+    .attr("width", w + 80)
+    .attr("height", h + 80)
+    .attr("transform", "translate(" + padding + "," + 80 + ")");
+    
+  // Load in CSV file
+  d3.csv("../data/Australia Waste.csv").then(function(data){
+    dataset = data;
+
+    // Convert tonnes column from String to Int
+    dataset.forEach(function(d) { d.Tonnes = parseInt(d.Tonnes.replace(/,/g, ""))});
       
-      // Get grouping of Year keys
-      allYears = d3.map(data, function(d){return(d.Year)}).keys();
+    // Get grouping of Year keys
+    allYears = d3.map(data, function(d){return(d.Year)}).keys();
 
-      // Get grouping of Jurisdiction keys
-      allWaste = d3.map(data, function(d){return(d.Category)}).keys();
+    // Get grouping of Jurisdiction keys
+    allWaste = d3.map(data, function(d){return(d.Category)}).keys();
 
-      // Derived metric - Sums the amount of waste regardless of Year and Waste Type
-      var rollup = d3.nest()
+    // Derived metric - Sums the amount of waste regardless of Year and Waste Type
+    rollup = d3.nest()
       .key(function(d) { return d.Jurisdiction; })
       .rollup(function(v) { return d3.sum(v, function(d) { return d.Tonnes; }); })
       .entries(dataset);
 
-      // Populate dropdown dynamically with grouping of Year data
-      d3.select("#year")
-        .selectAll('myOptions')
-        .data(allYears.sort().reverse())
-        .enter()
-        .append('option')
-        .text(function (d) { return d; }) // text showed in the menu
-        .attr("value", function (d) { return d; }) // corresponding value returned by the button
+    // Populate dropdown dynamically with grouping of Year data
+    d3.select("#year")
+      .selectAll('myOptions')
+      .data(allYears.sort().reverse())
+      .enter()
+      .append('option')
+      .text(function (d) { return d; }) // text showed in the menu
+      .attr("value", function (d) { return d; }) // corresponding value returned by the button
 
-      // Populate dropdown dynamically with grouping of Waste data
-      d3.select("#wasteType")
-        .selectAll('myOptions')
-        .data(allWaste.sort())
-        .enter()
-        .append('option')
-        .text(function (d) { return d; }) // text showed in the menu
-        .attr("value", function (d) { return d; }) // corresponding value returned by the button
+    // Populate dropdown dynamically with grouping of Waste data
+    d3.select("#wasteType")
+      .selectAll('myOptions')
+      .data(allWaste.sort())
+      .enter()
+      .append('option')
+      .text(function (d) { return d; }) // text showed in the menu
+      .attr("value", function (d) { return d; }) // corresponding value returned by the button
 
-      xScale = d3.scaleBand()
-        .domain(["ACT","NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"])
-        .range([0, w])
-        .paddingInner(0.05);
 
-      yScale = d3.scaleLinear()
-        .domain([0, d3.max(rollup, function(d){ return d.value})])
-        .range([h, 0]);
+  if (yearSelected == "All" && wasteSelected == "All"){
+    d3.selectAll("svg > *").remove();
 
-     svg.selectAll("rect")
-        .data(rollup)
-        .enter()
-        .append("rect")
-        .attr("x", function(d) {
-          return xScale(d.key) + 100;
-        })
-        .attr("y", function(d) {
-          return yScale(d.value) - 10;
-        })
-        .attr("width", xScale.bandwidth())
-        .attr("height", function(d) {
-          return h - yScale(d.value);
+    xScale = d3.scaleBand()
+      .domain(["ACT","NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"])
+      .range([0, w])
+      .paddingInner(0.05);
+
+    yScale = d3.scaleLinear()
+      .domain([0, d3.max(rollup, function(d){ return d.value})])
+      .range([h, 0]);
+
+    svg.selectAll("rect")
+      .data(rollup)
+      .enter()
+      .append("rect")
+      .attr("x", function(d) {
+        return xScale(d.key) + 100;
+      })
+      .attr("y", function(d) {
+        return yScale(d.value) - 10;
+      })
+      .attr("width", xScale.bandwidth())
+      .attr("height", function(d) {
+        return h - yScale(d.value);
       })
 
       var xAxis = d3.axisBottom().ticks(5).scale(xScale);
       var yAxis = d3.axisLeft().scale(yScale);
 
-      // Adding X and Y axis.
-      svg.append("g").attr("transform", "translate(100, "+ (h - 10) +")").call(xAxis);
-      svg.append("g").attr("transform", "translate(" + 100 + ", -10)").call(yAxis); 
-
-    // Sort from biggest to smallest
-    var sortBars = function(){
-        sortOrder = !sortOrder;
-  
-        svg.selectAll("rect")
-        .sort(function(a,b){
-          if(sortOrder){
-          return d3.ascending(a,b);}
-          else {
-            return d3.descending(a,b);
-          }
-        })
-        .transition()
-        .duration(500)
-        .attr("x", function(d,i){
-          return xScale(i);
-        });
-      };
-
+    // Adding X and Y axis.
+    svg.append("g").attr("transform", "translate(100, "+ (h - 10) +")").call(xAxis);
+    svg.append("g").attr("transform", "translate(" + 100 + ", -10)").call(yAxis); 
 
     // Adding Y axis label
     svg.append("text")
@@ -122,40 +120,36 @@ function init(){
       .text("State");
 
     HoverOn();
-
-    d3.select("#btnSort").on("click", function(){
-        sortBars();
-    });
-  });
-      // Hover effects and tooltips
-      var HoverOn = function(){
-        svg.selectAll("rect")
-        .on("mouseover", function(d, i){
-          var xPos = parseFloat(d3.select(this).attr("x")) + parseFloat(d3.select(this).attr("width"))/2 - 10;
-          var yPos = parseFloat(d3.select(this).attr("y")) + 20;
+  }  });
+};
+// Hover effects and tooltips
+var HoverOn = function(){
+  svg.selectAll("rect")
+  .on("mouseover", function(d, i){
+    var xPos = parseFloat(d3.select(this).attr("x")) + parseFloat(d3.select(this).attr("width"))/2 - 10;
+    var yPos = parseFloat(d3.select(this).attr("y")) + 20;
           
-          // Position the tooltip
-          d3.select("#tooltip") 
-            .style("left", xPos + "px") 
-            .style("top", yPos + "px") 
-            .select("#value") 
-            .text(d.value); 
+    // Position the tooltip
+    d3.select("#tooltip") 
+      .style("left", xPos + "px") 
+      .style("top", yPos + "px") 
+      .select("#value") 
+      .text(d.value); 
 
-          // Position the tooltip
-          d3.select("#tooltip") 
-            .select("#state") 
-            .text(d.key);
+    // Position the tooltip
+    d3.select("#tooltip") 
+      .select("#state") 
+      .text(d.key);
             
-          //Show the tooltip 
-          d3.select("#tooltip")
-            .classed("hidden", false ); 
-        }) 
-        .on("mouseout", function () { 
-            //Hide the tooltip 
-            d3.select("#tooltip")
-                .classed("hidden", true );
-        });
-    };
-}
+    //Show the tooltip 
+    d3.select("#tooltip")
+      .classed("hidden", false ); 
+  }) 
+  .on("mouseout", function () { 
+    //Hide the tooltip 
+    d3.select("#tooltip")
+      .classed("hidden", true );
+  });
+  };
 
 window.onload = init;
