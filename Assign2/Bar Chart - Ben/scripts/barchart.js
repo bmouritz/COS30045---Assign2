@@ -3,43 +3,84 @@ function init(){
     var h = 500;
     var padding = 20;
     var sortOrder = false;
-    var dataset = [0,1,2,3,4,5,6,7];
+    var dataset = [];
     var allYears;
+    var allWaste;
+    var dataYear = [];
+    var dataCategory = [];
+    var dataState = [];
+    var dataTonnes = [];
+    var xScale;
+    var yScale;
 
-    /*
+    
+    var svg = d3.select("#chart")
+      .append("svg")
+      .attr("width", w + 80)
+      .attr("height", h + 80)
+      .attr("transform", "translate(" + padding + "," + 80 + ")");
+    
     d3.csv("../data/Australia Waste.csv").then(function(data){
-      allYears = d3.nest()
-        .key(function(d) { return d.Year; })
-        .entries(data);
+      dataset = data;
 
-      for (var i = 0; i < data.length; i++){
-        var dataYears = data[i].Year;
-        var category = data[i].Category;
-        var ACT = data[i].ACT;
-        var NSW = data[i].NSW;
-        var NT = data[i].NT;
-        var QLD = data[i].Qld;
-        var SA = data[i].SA;
-        var TAS = data[i].Tas;
-        var VIC = data[i].Vic;
-        var WA = data[i].WA;
-      }
-  });
-*/
-		var xScale = d3.scaleBand()
-		  .domain(d3.range(dataset.length))
-		  .rangeRound([0, w])
-		  .paddingInner(0.5);
+      // Convert tonnes column from String to Int
+      dataset.forEach(function(d) { d.Tonnes = parseInt(d.Tonnes.replace(/,/g, ""))});
+      
+      // Get grouping of Year keys
+      allYears = d3.map(data, function(d){return(d.Year)}).keys();
 
-/*  var xScale = d3.scaleOrdinal()
-    .domain(dataset)
-    .range(['black', '#ccc', '#ccc']); */
+      // Get grouping of Jurisdiction keys
+      allWaste = d3.map(data, function(d){return(d.Category)}).keys();
 
-	var yScale = d3.scaleLinear()
-	  .domain([0, d3.max(dataset)])
-	  .range([ h, 0]);
+      // Populate dropdown dynamically with grouping of Year data
+      d3.select("#year")
+        .selectAll('myOptions')
+        .data(allYears.sort().reverse())
+        .enter()
+        .append('option')
+        .text(function (d) { return d; }) // text showed in the menu
+        .attr("value", function (d) { return d; }) // corresponding value returned by the button
 
+      // Populate dropdown dynamically with grouping of Waste data
+      d3.select("#wasteType")
+        .selectAll('myOptions')
+        .data(allWaste.sort())
+        .enter()
+        .append('option')
+        .text(function (d) { return d; }) // text showed in the menu
+        .attr("value", function (d) { return d; }) // corresponding value returned by the button
 
+      xScale = d3.scaleBand()
+        .domain(["ACT","NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"])
+        .range([0, w])
+        .paddingInner(0.05);
+
+      yScale = d3.scaleLinear()
+        .domain([0, d3.max(dataset, function(d){ return d.Tonnes})])
+        .range([h, 0]);
+
+     svg.selectAll("rect")
+        .data(dataset)
+        .enter()
+        .append("rect")
+        .attr("x", function(d) {
+          return xScale(d.Jurisdiction) + 100;
+        })
+        .attr("y", function(d) {
+          return yScale(d.Tonnes) - 10;
+        })
+        .attr("width", xScale.bandwidth())
+        .attr("height", function(d) {
+          return h - yScale(d.Tonnes);
+      })
+
+      var xAxis = d3.axisBottom().ticks(5).scale(xScale);
+      var yAxis = d3.axisLeft().scale(yScale);
+
+      // Adding X and Y axis.
+      svg.append("g").attr("transform", "translate(100, "+ (h - 10) +")").call(xAxis);
+      svg.append("g").attr("transform", "translate(" + 100 + ", -10)").call(yAxis); 
+    
 
     // Hover effects and tooltips
     var HoverOn = function(){
@@ -53,7 +94,7 @@ function init(){
             .style("left", xPos + "px") 
             .style("top", yPos + "px") 
             .select("#value") 
-            .text(i); 
+            .text(d.Tonnes); 
             
           //Show the tooltip 
           d3.select("#tooltip")
@@ -85,33 +126,6 @@ function init(){
         });
       };
 
-    var xAxis = d3.axisBottom().ticks(5).scale(xScale);
-    var yAxis = d3.axisLeft().ticks(5).scale(yScale);
-
-    var svg = d3.select("#chart")
-      .append("svg")
-      .attr("width", w + 80)
-      .attr("height", h + 80)
-      .attr("transform", "translate(" + padding + "," + 80 + ")");
-
-    svg.selectAll("rect")
-      .data(dataset)
-      .enter()
-      .append("rect")
-      .attr("x", function(d, i) {
-        return xScale(i) + 40;
-      })
-      .attr("y", function(d) {
-        return yScale(d) - 10;
-      })
-      .attr("width", xScale.bandwidth())
-      .attr("height", function(d) {
-        return h - yScale(d);
-    })
-
-    // Adding X and Y axis.
-    svg.append("g").attr("transform", "translate(40, "+ (h - 10) +")").call(xAxis);
-    svg.append("g").attr("transform", "translate(" + 40 + ", -10)").call(yAxis);
 
     // Adding Y axis label
     svg.append("text")
@@ -136,6 +150,7 @@ function init(){
     d3.select("#btnSort").on("click", function(){
         sortBars();
     });
+  });
 }
 
 window.onload = init;
