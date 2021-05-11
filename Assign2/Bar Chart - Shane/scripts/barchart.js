@@ -13,24 +13,33 @@ function init(){
     var xScale;
     var yScale;
 
-    
+
     var svg = d3.select("#chart")
       .append("svg")
       .attr("width", w + 80)
       .attr("height", h + 80)
       .attr("transform", "translate(" + padding + "," + 80 + ")");
-    
-    d3.csv("../data/Australia Waste.csv").then(function(data){
+
+    d3.csv("data/Australia Waste - Copy.csv").then(function(data){
       dataset = data;
 
       // Convert tonnes column from String to Int
       dataset.forEach(function(d) { d.Tonnes = parseInt(d.Tonnes.replace(/,/g, ""))});
-      
+
       // Get grouping of Year keys
       allYears = d3.map(data, function(d){return(d.Year)}).keys();
 
       // Get grouping of Jurisdiction keys
       allWaste = d3.map(data, function(d){return(d.Category)}).keys();
+
+      // Populate dropdown dynamically with grouping of Waste data
+      d3.select("#wasteType")
+        .selectAll('myOptions')
+        .data(allWaste.sort())
+        .enter()
+        .append('option')
+        .text(function (d) { return d; }) // text showed in the menu
+        .attr("value", function (d) { return d; }) // corresponding value returned by the button
 
       // Populate dropdown dynamically with grouping of Year data
       d3.select("#year")
@@ -41,14 +50,12 @@ function init(){
         .text(function (d) { return d; }) // text showed in the menu
         .attr("value", function (d) { return d; }) // corresponding value returned by the button
 
-      // Populate dropdown dynamically with grouping of Waste data
-      d3.select("#wasteType")
-        .selectAll('myOptions')
-        .data(allWaste.sort())
-        .enter()
-        .append('option')
-        .text(function (d) { return d; }) // text showed in the menu
-        .attr("value", function (d) { return d; }) // corresponding value returned by the button
+        // var sel = document.getElementById('#wasteType');
+        // console.log(sel.options[sel.selectedIndex].value);
+        // console.log(d3.select("#wasteType").node().value);
+        // console.log(d3.select("#year").node().value);
+
+        console.log(d3.select('#wasteType').property('value'));
 
       xScale = d3.scaleBand()
         .domain(["ACT","NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"])
@@ -75,12 +82,12 @@ function init(){
       })
 
       var xAxis = d3.axisBottom().ticks(5).scale(xScale);
-      var yAxis = d3.axisLeft().scale(yScale);
+      var yAxis = d3.axisLeft().scale(yScale).ticks(10).tickFormat(d3.format(".0s")); // Format y scale in million
 
       // Adding X and Y axis.
       svg.append("g").attr("transform", "translate(100, "+ (h - 10) +")").call(xAxis);
-      svg.append("g").attr("transform", "translate(" + 100 + ", -10)").call(yAxis); 
-    
+      svg.append("g").attr("transform", "translate(" + 100 + ", -10)").call(yAxis);
+
 
     // Hover effects and tooltips
     var HoverOn = function(){
@@ -88,20 +95,21 @@ function init(){
         .on("mouseover", function(d, i){
           var xPos = parseFloat(d3.select(this).attr("x")) + parseFloat(d3.select(this).attr("width"))/2 - 10;
           var yPos = parseFloat(d3.select(this).attr("y")) + 20;
-          
+
+          var formatComma = d3.format(",");
           // Position the tooltip
-          d3.select("#tooltip") 
-            .style("left", xPos + "px") 
-            .style("top", yPos + "px") 
-            .select("#value") 
-            .text(d.Tonnes); 
-            
-          //Show the tooltip 
           d3.select("#tooltip")
-            .classed("hidden", false ); 
-        }) 
-        .on("mouseout", function () { 
-            //Hide the tooltip 
+            .style("left", xPos + "px")
+            .style("top", yPos + "px")
+            .select("#value")
+            .text(function() { return formatComma(d.Tonnes); }); // add commas to tooltip value
+
+          //Show the tooltip
+          d3.select("#tooltip")
+            .classed("hidden", false );
+        })
+        .on("mouseout", function () {
+            //Hide the tooltip
             d3.select("#tooltip")
                 .classed("hidden", true );
         });
@@ -110,7 +118,7 @@ function init(){
     // Sort from biggest to smallest
     var sortBars = function(){
         sortOrder = !sortOrder;
-  
+
         svg.selectAll("rect")
         .sort(function(a,b){
           if(sortOrder){
@@ -135,7 +143,7 @@ function init(){
       .attr("x", -h / 2)
       .attr("dy", ".75em")
       .attr("transform", "rotate(-90)")
-      .text("Tonnes of Waste");
+      .text("Tonnes of Waste (millions)");
 
     // Adding X axis label
     svg.append("text")
