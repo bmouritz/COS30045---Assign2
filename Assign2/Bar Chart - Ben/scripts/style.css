@@ -38,3 +38,7 @@ rect {
     fill: #ff0000;
 }
 
+#xlabel, #ylabel{
+    font-weight: bold;  
+}
+
