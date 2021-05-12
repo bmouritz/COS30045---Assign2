@@ -201,6 +201,7 @@ function init(){
       // Get the value of Waste Type dropdown dynamically.
       document.getElementById("wasteType").addEventListener('change', function() {
         wasteSelected = this.value;
+        drawAll();
     });
   });
 
