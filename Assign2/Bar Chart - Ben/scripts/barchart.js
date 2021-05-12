@@ -59,8 +59,10 @@ function init(){
       .append('option')
       .text(function (d) { return d; }) // text showed in the menu
       .attr("value", function (d) { return d; }) // corresponding value returned by the button
-      
+    
+    // function to draw the visuals
     var drawAll = function(){
+        // Check both dropdowns, if both on All use derived dataset
         if (yearSelected == "All" && wasteSelected == "All"){
           d3.selectAll("svg > *").remove();
       
@@ -88,8 +90,8 @@ function init(){
               return h - yScale(d.value);
             })
       
-            var xAxis = d3.axisBottom().ticks(5).scale(xScale);
-            var yAxis = d3.axisLeft().scale(yScale);
+          var xAxis = d3.axisBottom().ticks(5).scale(xScale);
+          var yAxis = d3.axisLeft().scale(yScale);
       
           // Adding X and Y axis.
           svg.selectAll("#yaxis").remove();
@@ -116,7 +118,9 @@ function init(){
             .text("State");
       
           HoverOnDerived();
-        } else {
+        } 
+        // If not using any derived metrics just filter dataset
+        else {
           d3.selectAll("svg > *").remove();
       
           xScale = d3.scaleBand()
@@ -181,6 +185,7 @@ function init(){
           HoverOn();
         }
       }
+      // Call draw all for onload to work
       drawAll();
 
       // Get the value of Year dropdown dynamically.
@@ -195,7 +200,7 @@ function init(){
     });
   });
 
-  // Hover effects and tooltips
+  // Hover effects and tooltips for derived metrics
   var HoverOnDerived = function(){
     svg.selectAll("rect")
     .on("mouseover", function(d, i){
@@ -225,7 +230,7 @@ function init(){
     });
   };
 
-    // Hover effects and tooltips
+    // Hover effects and tooltips for non derived datasets
     var HoverOn = function(){
       svg.selectAll("rect")
       .on("mouseover", function(d, i){
