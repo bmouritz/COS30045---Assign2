@@ -1,4 +1,5 @@
-// Change yscale based on filter of year & waste type
+// add new agg value of tonnes based on filters.
+    //  Needs to return all 4 columns not just key/value
 // Create agg for all waste by year
 // Create agg for all year by waste
 // Fix format of hover
@@ -128,9 +129,12 @@ function init(){
             .range([0, w])
             .paddingInner(0.05);
           
+          // Filter dataset for yScale
+          var filterDataset = dataset.filter(function(d) { return d.Category == wasteSelected, d.Year == yearSelected });
+
           // add filter to scale//
           yScale = d3.scaleLinear()
-            .domain([0, d3.max(dataset, function(d){ return d.Tonnes})])
+            .domain([0, d3.max(filterDataset, function(d){ return d.Tonnes})])
             .range([h, 0]);
       
           svg.selectAll("rect")
