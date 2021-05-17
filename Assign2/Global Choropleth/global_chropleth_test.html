@@ -67,25 +67,22 @@
 
 </style>
 <script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.13.0/d3-legend.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v0.3.min.js"></script>
 <script src="scripts/global_generate_map.js"></script>
 <script src="scripts/global_choropleth_test.js"></script>
 
 <body>
-
   <h1>Choropleth test</h1>
-  <!-- <button type="button" id="toggBtn"></button> -->
-  <button type="button" id="ttBtn">Clear Tooltips</button>
 
+  <button type="button" id="ttBtn">Clear Tooltips</button>
+  <div id="legendChart"></div>
+  
   <p id="chart" style="font-size: 12px; font-weight: bold; font-family: Helvetica;"></p>
   <div id="tooltip" class="hidden">
     <p><strong>Country: </strong><span id="country"></span></p>
     <p><strong>Amount: </strong><span id="value"></span></p>
   </div>
-  <!-- <svg>
-  <g id="map" />
-  <g id="art" />
-  <g id="labels" />
-</svg> -->
 
 <footer>COS300045 Data Visualisation<br/>By Shane Turville</footer>
 </body>
