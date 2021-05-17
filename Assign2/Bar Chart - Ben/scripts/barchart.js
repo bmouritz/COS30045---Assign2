@@ -213,12 +213,12 @@ function init(){
   // Hover effects and tooltips for derived metrics
   var HoverOn = function(){
     svg.selectAll("rect")
-    .on("mouseover", function(d, i){
+      .on("mouseover", function(d){
       var xPos = parseFloat(d3.select(this).attr("x")) + parseFloat(d3.select(this).attr("width"))/2 - 10;
       var yPos = parseFloat(d3.select(this).attr("y")) + 20;
             
       var formatComma = d3.format(",");
-
+      d3.select(this).style("opacity", 1);
       // Position the tooltip
       d3.select("#tooltip")
         .style("left", xPos + "px")
@@ -234,8 +234,9 @@ function init(){
       //Show the tooltip 
       d3.select("#tooltip")
         .classed("hidden", false ); 
-    }).style("fill", colour)
+    }).style("fill", colour).style("opacity", 0.6)
     .on("mouseout", function () { 
+      d3.select(this).style("opacity", 0.6);
       //Hide the tooltip 
       d3.select("#tooltip")
         .classed("hidden", true );
