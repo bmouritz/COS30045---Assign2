@@ -4,6 +4,7 @@
 // Create agg for all year by waste
 // Fix format of hover
 // Fix y scale amounts
+// Change figure to reflect year and waste type in title.
 
 function init(){
   var w = 700;
@@ -132,13 +133,22 @@ function init(){
           // Filter dataset for yScale
           var filterDataset = dataset.filter(function(d) { return d.Category == wasteSelected, d.Year == yearSelected });
 
+          // Derived metric - Sums the amount of waste regardless of Year and Waste Type
+          rollup = d3.nest()
+            .key(function(d) { return d.Jurisdiction; })
+            .key(function(d) { return d.Category; })
+            .rollup(function(v) { return d3.sum(v, function(d) { return d.Tonnes; }); })
+            .entries(filterDataset);
+
+          console.log(rollup);
+
           // add filter to scale//
           yScale = d3.scaleLinear()
             .domain([0, d3.max(filterDataset, function(d){ return d.Tonnes})])
             .range([h, 0]);
       
           svg.selectAll("rect")
-            .data(dataset)
+            .data(rollup)
             .enter()
             .append("rect")
             .filter(function(d) { return d.Category == wasteSelected })
@@ -153,20 +163,17 @@ function init(){
               return h - yScale(d.Tonnes);
             })
 
-            svg.selectAll("rect")
+          svg.selectAll("rect")
             .filter(function(d) { return d.Year == yearSelected })
       
-            var xAxis = d3.axisBottom().ticks(5).scale(xScale);
-            var yAxis = d3.axisLeft().scale(yScale);
+          var xAxis = d3.axisBottom().ticks(5).scale(xScale);
+          var yAxis = d3.axisLeft().scale(yScale);
       
           // Adding X and Y axis.
           svg.selectAll("#yaxis").remove();
           svg.selectAll("#xaxis").remove();
           svg.append("g").attr("transform", "translate(100, "+ (h - 10) +")").call(xAxis);
           svg.append("g").attr("transform", "translate(" + 100 + ", -10)").call(yAxis); 
-          
-          svg.selectAll("g.y.axis")
-          .call(yAxis);
 
           // Adding Y axis label
           svg.append("text")
