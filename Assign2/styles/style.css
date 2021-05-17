@@ -9,7 +9,6 @@ description: [To apply CSS to the following pages: Assign2.html]
 body{
     margin: 0;
     width:100%;
-    background-color: #F4E8C1af;
 }
 
 p{
@@ -26,7 +25,7 @@ p{
 }
 
 #header{
-    background-image: url("../../Assign2/media/header.jpg");
+    background-image: url("../media/header.jpg");
     width: 100%;
     height: 20rem;
     top:0;
@@ -139,13 +138,6 @@ h3{
     padding-right: 1rem;
 }
 
-#divdiv{
-	height: 80%; 
-	width: 45%; 
-	display: block; 
-	margin: 0 auto;
-}
-
 footer {
     clear:both;
     background-color: #111111;
@@ -175,5 +167,47 @@ footer {
 }
 
 #wasteChart{
-    background-color: #F4E8C1;
+    background-color: white;
+}
+
+figcaption{
+    padding-top: 2rem;
+    padding-left: 3rem;
+    text-align: center;
+}
+
+.center{
+    text-align: center;  
+}
+
+#xlabel, #ylabel{
+    font-weight: bold;  
+}
+
+#tooltip {
+    position: absolute;
+    width: 200px;
+    height: auto;
+    padding: 10px;
+    background-color: #111;
+    color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    text-align: center;
+}
+
+#tooltip.hidden {
+    display: none;
+}
+
+#tooltip p {
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 20px;
 }
