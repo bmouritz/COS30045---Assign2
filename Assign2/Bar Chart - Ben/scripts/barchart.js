@@ -1,11 +1,3 @@
-// add new agg value of tonnes based on filters.
-    //  Needs to return all 4 columns not just key/value
-// Create agg for all waste by year
-// Create agg for all year by waste
-// Fix format of hover
-// Fix y scale amounts
-// Change figure to reflect year and waste type in title.
-
 function init(){
   var w = 700;
   var h = 500;
@@ -18,6 +10,7 @@ function init(){
   var yearSelected = document.getElementById("year").value;
   var wasteSelected = document.getElementById("wasteType").value;
   var rollup;
+  var colour = "blue";
 
   var svg = d3.select("#chart")
     .append("svg")
@@ -37,12 +30,6 @@ function init(){
 
     // Get grouping of Jurisdiction keys
     allWaste = d3.map(data, function(d){return(d.Category)}).keys();
-
-    // Derived metric - Sums the amount of waste regardless of Year and Waste Type
-    rollup = d3.nest()
-      .key(function(d) { return d.Jurisdiction; })
-      .rollup(function(v) { return d3.sum(v, function(d) { return d.Tonnes; }); })
-      .entries(dataset);
 
     // Populate dropdown dynamically with grouping of Year data
     d3.select("#year")
@@ -64,10 +51,63 @@ function init(){
     
     // function to draw the visuals
     var drawAll = function(){
+      d3.selectAll("svg > *").remove();
         // Check both dropdowns, if both on All use derived dataset
         if (yearSelected == "All" && wasteSelected == "All"){
-          d3.selectAll("svg > *").remove();
-      
+          // Derived metric - Sums the amount of waste regardless of Year and Waste Type
+          rollup = d3.nest()
+            .key(function(d) { return d.Jurisdiction; })
+            .rollup(function(v) { return d3.sum(v, function(d) { return d.Tonnes; }); })
+            .entries(dataset);
+        }
+
+        // Check if Year selected is All
+        else if (yearSelected == "All" && wasteSelected != "All"){
+          // Filter data to only the waste category
+          var filteredData = dataset.filter(function(d) 
+          {   
+            if( d.Category == wasteSelected)
+            { 
+              return d;
+            } 
+          });
+          rollup = d3.nest()
+            .key(function(d) { return d.Jurisdiction; })
+            .rollup(function(v) { return d3.sum(v, function(d) { return d.Tonnes; }); })
+            .entries(filteredData);
+        }
+
+        // Check if Year selected is All
+        else if (yearSelected != "All" && wasteSelected == "All"){
+          // Filter data to only the year
+          var filteredData = dataset.filter(function(d) 
+          {   
+            if( d.Year == yearSelected)
+            { 
+              return d;
+            } 
+          });          
+          rollup = d3.nest()
+            .key(function(d) { return d.Jurisdiction; })
+            .rollup(function(v) { return d3.sum(v, function(d) { return d.Tonnes; }); })
+            .entries(filteredData);
+        }
+
+        // Check both dropdowns aren't All
+        else if (yearSelected != "All" && wasteSelected != "All"){
+          // Filter the data to both year and waste type
+          var filteredData = dataset.filter(function(d) 
+          {   
+            if( (d.Year == yearSelected) && (d.Category == wasteSelected))
+            { 
+              return d;
+            } 
+          });
+          rollup = d3.nest()
+            .key(function(d) { return d.Jurisdiction; })
+            .rollup(function(v) { return d3.sum(v, function(d) { return d.Tonnes; }); })
+            .entries(filteredData);
+        }
           xScale = d3.scaleBand()
             .domain(["ACT","NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"])
             .range([0, w])
@@ -82,10 +122,10 @@ function init(){
             .enter()
             .append("rect")
             .attr("x", function(d) {
-              return xScale(d.key) + 100;
+              return xScale(d.key) + 60;
             })
             .attr("y", function(d) {
-              return yScale(d.value) - 10;
+              return yScale(d.value);
             })
             .attr("width", xScale.bandwidth())
             .attr("height", function(d) {
@@ -93,13 +133,13 @@ function init(){
             })
       
           var xAxis = d3.axisBottom().ticks(5).scale(xScale);
-          var yAxis = d3.axisLeft().scale(yScale);
+          var yAxis = d3.axisLeft().scale(yScale).ticks(5).tickFormat(d3.format(".0s")); // Format y scale in million
       
           // Adding X and Y axis.
           svg.selectAll("#yaxis").remove();
           svg.selectAll("#xaxis").remove();
-          svg.append("g").attr("id", "xaxis").attr("transform", "translate(100, "+ (h - 10) +")").call(xAxis);
-          svg.append("g").attr("id", "yaxis").attr("transform", "translate(" + 100 + ", -10)").call(yAxis); 
+          svg.append("g").attr("id", "xaxis").attr("transform", "translate(60, "+ (h) +")").call(xAxis);
+          svg.append("g").attr("id", "yaxis").attr("transform", "translate(" + 60 + ", 0)").call(yAxis); 
 
           // Adding Y axis label
           svg.append("text")
@@ -109,122 +149,82 @@ function init(){
             .attr("x", -h / 2)
             .attr("dy", ".75em")
             .attr("transform", "rotate(-90)")
-            .text("Tonnes of Waste");
+            .text("Tonnes of Waste (M)");
       
           // Adding X axis label
           svg.append("text")
             .attr("id", "xlabel")
             .attr("text-anchor", "middle")
             .attr("x", 50 + w / 2)
-            .attr("y", h + 25)
+            .attr("y", h + 35)
             .text("State");
-      
-          HoverOnDerived();
-        } 
-        // If not using any derived metrics just filter dataset
-        else {
-          d3.selectAll("svg > *").remove();
-      
-          xScale = d3.scaleBand()
-            .domain(["ACT","NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"])
-            .range([0, w])
-            .paddingInner(0.05);
+
+          d3.select("#wastetitle")
+            .text(wasteSelected.toLowerCase());
           
-          // Filter dataset for yScale
-          var filterDataset = dataset.filter(function(d) { return d.Category == wasteSelected, d.Year == yearSelected });
-
-          // Derived metric - Sums the amount of waste regardless of Year and Waste Type
-          rollup = d3.nest()
-            .key(function(d) { return d.Jurisdiction; })
-            .key(function(d) { return d.Category; })
-            .rollup(function(v) { return d3.sum(v, function(d) { return d.Tonnes; }); })
-            .entries(filterDataset);
-
-          console.log(rollup);
-
-          // add filter to scale//
-          yScale = d3.scaleLinear()
-            .domain([0, d3.max(filterDataset, function(d){ return d.Tonnes})])
-            .range([h, 0]);
-      
-          svg.selectAll("rect")
-            .data(rollup)
-            .enter()
-            .append("rect")
-            .filter(function(d) { return d.Category == wasteSelected })
-            .attr("x", function(d) {
-              return xScale(d.Jurisdiction) + 100;
-            })
-            .attr("y", function(d) {
-              return yScale(d.Tonnes) - 10;
-            })
-            .attr("width", xScale.bandwidth())
-            .attr("height", function(d) {
-              return h - yScale(d.Tonnes);
-            })
-
-          svg.selectAll("rect")
-            .filter(function(d) { return d.Year == yearSelected })
-      
-          var xAxis = d3.axisBottom().ticks(5).scale(xScale);
-          var yAxis = d3.axisLeft().scale(yScale);
-      
-          // Adding X and Y axis.
-          svg.selectAll("#yaxis").remove();
-          svg.selectAll("#xaxis").remove();
-          svg.append("g").attr("transform", "translate(100, "+ (h - 10) +")").call(xAxis);
-          svg.append("g").attr("transform", "translate(" + 100 + ", -10)").call(yAxis); 
-
-          // Adding Y axis label
-          svg.append("text")
-            .attr("id", "ylabel")
-            .attr("text-anchor", "middle")
-            .attr("y", 0)
-            .attr("x", -h / 2)
-            .attr("dy", ".75em")
-            .attr("transform", "rotate(-90)")
-            .text("Tonnes of Waste");
-      
-          // Adding X axis label
-          svg.append("text")
-            .attr("id", "xlabel")
-            .attr("text-anchor", "middle")
-            .attr("x", 50 + w / 2)
-            .attr("y", h + 25)
-            .text("State");
-      
+            d3.select("#yeartitle")
+            .text(yearSelected.toLowerCase());
           HoverOn();
         }
-      }
+      
       // Call draw all for onload to work
       drawAll();
 
       // Get the value of Year dropdown dynamically.
       document.getElementById("year").addEventListener('change', function() {
-        yearSelected = this.value;
+        wasteSelected = document.getElementById("wasteType").value;
+        yearSelected = document.getElementById("year").value;
         drawAll();
       });
 
       // Get the value of Waste Type dropdown dynamically.
       document.getElementById("wasteType").addEventListener('change', function() {
-        wasteSelected = this.value;
+        wasteSelected = document.getElementById("wasteType").value;
+        yearSelected = document.getElementById("year").value;
+        if(wasteSelected == "Ash"){
+          colour = "black";
+        } else if (wasteSelected == "Biosolids"){
+          colour = "yellow";
+        } else if (wasteSelected == "Glass"){
+          colour = "aqua";
+        } else if (wasteSelected == "Hazardous"){
+          colour = "green";
+        } else if (wasteSelected == "Masonry materials"){
+          colour = "lightgray";
+        } else if (wasteSelected == "Metals"){
+          colour = "SlateBlue";
+        } else if (wasteSelected == "Mining"){
+          colour = "DarkGoldenRod";
+        } else if (wasteSelected == "Organics"){
+          colour = "DarkOliveGreen";
+        } else if (wasteSelected == "Other"){
+          colour = "Purple";
+        } else if (wasteSelected == "Paper & cardboard"){
+          colour = "PaleVioletRed";
+        } else if (wasteSelected == "Plastics"){
+          colour = "Salmon";
+        } else {
+          colour = "OrangeRed";
+        }
         drawAll();
     });
   });
 
   // Hover effects and tooltips for derived metrics
-  var HoverOnDerived = function(){
+  var HoverOn = function(){
     svg.selectAll("rect")
     .on("mouseover", function(d, i){
       var xPos = parseFloat(d3.select(this).attr("x")) + parseFloat(d3.select(this).attr("width"))/2 - 10;
       var yPos = parseFloat(d3.select(this).attr("y")) + 20;
             
+      var formatComma = d3.format(",");
+
       // Position the tooltip
-      d3.select("#tooltip") 
-        .style("left", xPos + "px") 
-        .style("top", yPos + "px") 
-        .select("#value") 
-        .text(d.value); 
+      d3.select("#tooltip")
+        .style("left", xPos + "px")
+        .style("top", yPos + "px")
+        .select("#value")
+        .text(function() { return formatComma(d.value); }); // add commas to tooltip value
 
       // Position the tooltip
       d3.select("#tooltip") 
@@ -234,43 +234,13 @@ function init(){
       //Show the tooltip 
       d3.select("#tooltip")
         .classed("hidden", false ); 
-    }) 
+    }).style("fill", colour)
     .on("mouseout", function () { 
       //Hide the tooltip 
       d3.select("#tooltip")
         .classed("hidden", true );
     });
   };
-
-    // Hover effects and tooltips for non derived datasets
-    var HoverOn = function(){
-      svg.selectAll("rect")
-      .on("mouseover", function(d, i){
-        var xPos = parseFloat(d3.select(this).attr("x")) + parseFloat(d3.select(this).attr("width"))/2 - 10;
-        var yPos = parseFloat(d3.select(this).attr("y")) + 20;
-              
-        // Position the tooltip
-        d3.select("#tooltip") 
-          .style("left", xPos + "px") 
-          .style("top", yPos + "px") 
-          .select("#value") 
-          .text(d.Tonnes); 
-  
-        // Position the tooltip
-        d3.select("#tooltip") 
-          .select("#state") 
-          .text(d.Jurisdiction);
-                
-        //Show the tooltip 
-        d3.select("#tooltip")
-          .classed("hidden", false ); 
-      }) 
-      .on("mouseout", function () { 
-        //Hide the tooltip 
-        d3.select("#tooltip")
-          .classed("hidden", true );
-      });
-    };
 };
 
 window.onload = init;

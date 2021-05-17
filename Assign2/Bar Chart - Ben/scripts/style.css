@@ -30,14 +30,6 @@
     padding:2rem;
 }
 
-rect:hover {
-    fill: #ff0000af;
-}
-
-rect {
-    fill: #ff0000;
-}
-
 #xlabel, #ylabel{
     font-weight: bold;  
 }
