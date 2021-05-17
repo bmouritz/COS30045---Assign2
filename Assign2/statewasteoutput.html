@@ -11,7 +11,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
         
-        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
 		<script src="./scripts/kerbsidewaste.js"></script>
 
         <title>State Waste Output</title>
@@ -32,8 +32,28 @@
         <div>
             
         </div>
-		<div id="divdiv">
-			<p id="wasteChart"></p>
+        <div class="center">
+            <p>hello i am text</p>
+        </div>
+        <div class="center">
+            <label for="wasteType">Select waste type:</label>
+            <select name="wasteType" id="wasteType">
+                <option value="All">All</option>
+            </select>
+            <br/>
+            <label for="year">Select year:</label>
+            <select name="year" id="year">
+                <option value="All">All</option>
+            </select>
+        </div>
+        <figure class="center">
+            <p id="chart"></p>
+            <figcaption><strong>Visual 1 – Comparison of Australian State/Territories <span id="wastetitle"></span> waste output - <span id="yeartitle"></span></strong>
+            </figcaption>
+        </figure>
+        <div id="tooltip" class="hidden">
+            <p><strong>State: </strong><span id="state"></span></p>
+            <p><strong>Amount: </strong><span id="value"></span></p>
         </div>
 		<br/>
 		<footer>

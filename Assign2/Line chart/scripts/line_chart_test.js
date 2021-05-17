@@ -2,16 +2,14 @@ function init() {
 
 	var dataset;
 
-	// read in csv and pass data to lineChart function
-	d3.csv("data/line_chart_data.csv", function(d) {
-		return {
-			// year: new Date(+d.year),
-			year: new Date(+d.year, +d.month - 1),
-			tonnes: +d.tonnes,
-			billions: +d.billions
-		};
-	}).then(function(data){
+  // Load in CSV file
+  d3.csv("../data/Australia Waste.csv").then(function(data){
 		dataset = data;
+
+		// Convert tonnes column from String to Int
+    	dataset.forEach(function(d) { d.Tonnes = parseInt(d.Tonnes.replace(/,/g, ""))});
+		// Convert years column from String to Date
+    	dataset.forEach(function(d) { d.Year = new Date(+d.Year.substr(d.Year.length - 4), 0, 1)});
 		lineChart(dataset);
 	})
 }
