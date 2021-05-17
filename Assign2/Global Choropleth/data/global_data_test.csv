@@ -11,7 +11,7 @@ Antigua and Barbuda, AG, ATG,28,17.05,-61.8,76
 Argentina, AR, ARG,32,-34,-64,12
 Armenia, AM, ARM,51,40,45,57
 Aruba, AW, ABW,533,12.5,-69.9667,9
-Australia, AU, AUS,36,-27,133,28
+Australia, AU, AUS,36,-27,133,300
 Austria, AT, AUT,40,47.3333,13.3333,73
 Azerbaijan, AZ, AZE,31,40.5,47.5,28
 Bahamas, BS, BHS,44,24.25,-76,35
@@ -29,7 +29,7 @@ Bolivia, BO, BOL,68,-17,-65,25
 Bosnia and Herzegovina, BA, BIH,70,44,18,96
 Botswana, BW, BWA,72,-22,24,11
 Bouvet Island, BV, BVT,74,-54.4333,3.4,72
-Brazil, BR, BRA,76,-10,-55,99
+Brazil, BR, BRA,76,-10,-55,109
 British Indian Ocean Territory, IO, IOT,86,-6,71.5,3
 Brunei Darussalam, BN, BRN,96,4.5,114.6667,38
 Brunei, BN, BRN,96,4.5,114.6667,21
@@ -51,7 +51,7 @@ Colombia, CO, COL,170,4,-72,37
 Comoros, KM, COM,174,-12.1667,44.25,43
 "Republic of Congo", CG, COG,178,-1,15,54
 "Democratic Republic of the Congo", CD, COD,180,0,25,2
-Cook Islands, CK, COK,184,-21.2333,-159.7667,99
+Cook Islands, CK, COK,184,-21.2333,-159.7667,89
 Costa Rica, CR, CRI,188,10,-84,3
 Côte d'Ivoire, CI, CIV,384,8,-5,78
 Ivory Coast, CI, CIV,384,8,-5,98
@@ -75,12 +75,12 @@ Faroe Islands, FO, FRO,234,62,-7,72
 Fiji, FJ, FJI,242,-18,175,30
 Finland, FI, FIN,246,64,26,90
 France, FR, FRA,250,46,2,24
-French Guiana, GF, GUF,254,4,-53,99
+French Guiana, GF, GUF,254,4,-53,150
 French Polynesia, PF, PYF,258,-15,-140,81
 French Southern Territories, TF, ATF,260,-43,67,25
 Gabon, GA, GAB,266,-1,11.75,7
 Gambia, GM, GMB,270,13.4667,-16.5667,27
-Georgia, GE, GEO,268,42,43.5,99
+Georgia, GE, GEO,268,42,43.5,250
 Germany, DE, DEU,276,51,9,68
 Ghana, GH, GHA,288,8,-2,10
 Gibraltar, GI, GIB,292,36.1833,-5.3667,79
@@ -135,7 +135,7 @@ Macao, MO, MAC,446,22.1667,113.55,0
 "Macedonia, the former Yugoslav Republic of", MK, MKD,807,41.8333,22,14
 Madagascar, MG, MDG,450,-20,47,73
 Malawi, MW, MWI,454,-13.5,34,54
-Malaysia, MY, MYS,458,2.5,112.5,99
+Malaysia, MY, MYS,458,2.5,112.5,300
 Maldives, MV, MDV,462,3.25,73,13
 Mali, ML, MLI,466,17,-4,52
 Malta, MT, MLT,470,35.8333,14.5833,78
@@ -217,7 +217,7 @@ Sudan, SD, SDN,736,15,30,89
 Suriname, SR, SUR,740,4,-56,11
 Svalbard and Jan Mayen, SJ, SJM,744,78,20,75
 Swaziland, SZ, SWZ,748,-26.5,31.5,83
-Sweden, SE, SWE,752,62,15,99
+Sweden, SE, SWE,752,62,15,380
 Switzerland, CH, CHE,756,47,8,48
 Syria, SY, SYR,760,35,38,43
 "Taiwan, Province of China", TW, TWN,158,23.5,121,42
