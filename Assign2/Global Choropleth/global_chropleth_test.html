@@ -32,9 +32,13 @@
     color: #fff;
     border-radius: 2px;
   }
-  #chart{
-  background-color: #ADD8E6;
-  border: 1px solid #CCC;
+  #map{
+    background-color: #ADD8E6;
+    border: 1px solid #CCC;
+  }
+  #map, #legend{
+    font-size: 12px;
+    font-family: Helvetica;
   }
   #tooltip {
     position: absolute;
@@ -51,39 +55,48 @@
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
     pointer-events: none;
     text-align: center;
-}
+  }
 
   #tooltip.hidden {
-      display: none;
+    display: none;
   }
 
   #tooltip p {
-      margin: 0;
-      font-family: sans-serif;
-      font-size: 16px;
-      line-height: 20px;
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 20px;
   }
 </style>
 
 </style>
 <script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.13.0/d3-legend.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v0.3.min.js"></script>
-<script src="scripts/global_generate_map.js"></script>
-<script src="scripts/global_choropleth_test.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
+<script src="https://unpkg.com/d3-simple-slider"></script>
+<script src="scripts/generate_legend.js"></script>
+<script src="scripts/generate_map.js"></script>
+<script src="scripts/script.js"></script>
 <body>
-  <h1>Choropleth test</h1>
+  <h1 id="title">Global Choropleth showing GDP for the year 2017</h1>
 
-  <button type="button" id="ttBtn">Clear Tooltips</button>
-  <div id="legendChart"></div>
-  
-  <p id="chart" style="font-size: 12px; font-weight: bold; font-family: Helvetica;"></p>
-  <div id="tooltip" class="hidden">
-    <p><strong>Country: </strong><span id="country"></span></p>
-    <p><strong>Amount: </strong><span id="value"></span></p>
+  <!-- <button type="button" id="ttBtn">Clear Tooltips</button> -->
+  <div id="slider"></div>
+
+  <div id="visualisation">
+    <div id="legend"></div>
+
+    <!-- <p id="value"></p> -->
+
+    <p id="map"></p>
+
+    <div id="tooltip" class="hidden">
+      <p><strong>Country: </strong><span id="country"></span></p>
+      <p><strong>Year: </strong><span id="year"></span></p>
+      <p><strong>Amount: </strong><span id="value"></span></p>
+    </div>
   </div>
 
-<footer>COS300045 Data Visualisation<br/>By Shane Turville</footer>
+  <footer>COS300045 Data Visualisation<br/>By Shane Turville</footer>
 </body>
 </html>

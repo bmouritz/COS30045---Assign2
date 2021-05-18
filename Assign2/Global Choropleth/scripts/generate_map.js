@@ -1,4 +1,4 @@
-function generateMap(dataString, countryColour) {
+function generateMap(dataString, countryColour, yearSelected) {
 
   var w = 1000;
   var h = 600;
@@ -30,62 +30,32 @@ function generateMap(dataString, countryColour) {
   var path = d3.geoPath()
     .projection(projection);
 
-  var svg = d3.select("#chart")
+
+  var svg = d3.select("#map")
     .append("svg")
+    .attr("class", "vis")
     .attr("width",w)
     .attr("height",h)
     .style("opacity", 0.8);
-
-  //Not yet working - keep chipping away at
-  // var legend = svg.selectAll('#legendChart')
-  //   .data(countryColour.domain().reverse())
-  //   .enter()
-  //   .append('rect')
-  //   .attr("x", 0)
-  //   .attr("y", function(d, i) {
-  //     return i * 20;
-  //   })
-  //   .attr("width", 10)
-  //   .attr("height", 10)
-  //   .style("fill", countryColour);
 
   //Load in Country data from csv
   d3.csv(dataString, (error, data) => {
     if (error) return console.error(error); // Throw error if csv not found
 
-    // Set min and max
-    var min = d3.min(data, function(d) { return d.AMOUNT; });
-    var max = d3.max(data, function(d) { return d.AMOUNT; });
+    data = data.filter(function(d) {
+      return d.Year == yearSelected // filter the dataset down to the year selected by slider
+      && d.Alpha_3_code.length == 3; // and remove aggregate amounts
+    });
+
+    // Set min and max amounts dynamically
+    var min = d3.min(data, function(d) { return parseInt(d.AMOUNT); });
+    var max = d3.max(data, function(d) { return parseInt(d.AMOUNT); });
+
+    console.log(min);
+    console.log(max);
 
     //Set input domain for colour scale dynamically
     countryColour.domain([min,max]);
-
-    // Legend
-    var categories = [min,max];
-    // var ordinal = d3.scaleOrdinal()
-	  //   .domain(categories)
-  	//   .range(categories.map((val, i) =>
-		// 		d3.interpolateYlGnBu(i / (categories.length - 1))
-		// 	));
-    // var legendOrdinal = d3.legendColor().scale(ordinal);
-    // svg.select("#legendChart").call(legendOrdinal);
-
-    var legend = svg.select('#legendChart')
-    .append("svg")
-      .attr("width", 960)
-      .attr("height", 250);
-
-    legend.append("g")
-      .attr("class", "legendInterval")
-      .attr("transform", "translate(20,20)");
-
-    var linear = d3.scaleLinear()
-      .domain(categories)
-      .range(categories);
-    var legendLinear = d3.legendColor().scale(linear);
-
-    legend.select("#legendChart")
-      .call(legendLinear);
 
     //Load in GeoJSON data
     d3.json("./data/countries.geojson", (error, json) => {
@@ -153,10 +123,22 @@ function generateMap(dataString, countryColour) {
             .select("#country")
             .text(selected);
 
+          // Set text of the year
+          d3.select("#tooltip")
+            .select("#year")
+            .text(yearSelected);
+
           // Set text of the amount
+          var f = d3.format("0.2s"); // Set up formatting for amount
+          if (amount) {
           d3.select("#tooltip")
             .select("#value")
-            .text(amount);
+            .text(f(amount).replace(/G/,"B")); // Use formatting in tooltip
+          } else {
+          d3.select("#tooltip")
+            .select("#value")
+            .text('N/A'); // Set to N/A if no amount in data
+          }
 
           //Show the tooltip
           d3.select("#tooltip")
@@ -171,5 +153,8 @@ function generateMap(dataString, countryColour) {
           }
         });
       });
+
+      // Create the Legend and pass min, max and colour scheme
+      generateLegend(min, max, countryColour);
     });
 };

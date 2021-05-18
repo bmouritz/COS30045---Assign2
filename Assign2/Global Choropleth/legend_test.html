@@ -16,82 +16,9 @@
     font-weight: bold;
   }
 </style>
-<svg width="960" height="600"></svg>
 <script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
-<script>
-
-  var min = 0;
-  var max = 99;
-
-  var colorGreen = d3.scaleQuantize()
-  .range([
-  "rgb(237,248,233)",
-  "rgb(186,228,179)",
-  "rgb(116,196,118)",
-  "rgb(49,163,84)",
-  "rgb(0,109,44)"
-  ]);
-
-  // The svg
-  var svg = d3.select("svg"),
-  width = +svg.attr("width"),
-  height = +svg.attr("height");
-
-  // Data and color scale
-  var data = d3.map();
-  var colorScheme = d3.schemeReds[6];
-  colorScheme.unshift("#eee")
-  var colorScale = d3.scaleThreshold()
-  .domain([min,max])
-  .range(colorGreen);
-
-  // Legend
-  var g = svg.append("g")
-  .attr("class", "legendThreshold")
-  .attr("transform", "translate(20,20)");
-  g.append("text")
-  .attr("class", "caption")
-  .attr("x", 0)
-  .attr("y", -6)
-  .text("Measure");
-  var labels = [
-  Math.round(min),
-  Math.round(Math.round(max/2)/2),
-  Math.round(max/2),
-  Math.round(Math.round(Math.round(max/2)/2)*3),
-  Math.round(max)
-  ];
-  var legend = d3.legendColor()
-  .labels(function (d) { return labels[d.i]; })
-  .shapePadding(4)
-  .scale(colorGreen);
-  svg.select(".legendThreshold")
-  .call(legend);
-
-  // Load external data and boot
-  // d3.queue()
-  //     .defer(d3.json, "http://enjalot.github.io/wwsd/data/world/world-110m.geojson")
-  //     .defer(d3.csv, "mooc-countries.csv", function(d) { data.set(d.code, +d.total); })
-  //     .await(ready);
-  //
-  // function ready(error, topo) {
-  //     if (error) throw error;
-  //
-  //     // Draw the map
-  //     svg.append("g")
-  //         .attr("class", "countries")
-  //         .selectAll("path")
-  //         .data(topo.features)
-  //         .enter().append("path")
-  //             .attr("fill", function (d){
-  //                 // Pull data for this country
-  //                 d.total = data.get(d.id) || 0;
-  //                 // Set the color
-  //                 return colorScale(d.total);
-  //             })
-  //             .attr("d", path);
-  // }
-</script>
+<script src="scripts/legend_function.js"></script>
+<body>
+  <p id="chart"></p>
+</body>
