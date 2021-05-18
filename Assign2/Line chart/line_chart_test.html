@@ -9,13 +9,13 @@
   <style type="text/css">
       .y1Line {
         fill: none;
-        stroke: green;
+        stroke: red;
         stroke-width: 1;
       }
 
       .y2Line {
         fill: none;
-        stroke: red;
+        stroke: green;
         stroke-width: 1;
       }
 
@@ -27,7 +27,7 @@
         color: red;
       }
 
-      #tooltip {
+      #tooltip, #tooltip1 {
     position: absolute;
     width: 200px;
     height: auto;
@@ -44,15 +44,18 @@
     text-align: center;
 }
 
-#tooltip.hidden {
+#tooltip.hidden, #tooltip1.hidden {
     display: none;
 }
 
-#tooltip p {
+#tooltip p, #tooltip1 p {
     margin: 0;
     font-family: sans-serif;
     font-size: 16px;
     line-height: 20px;
+}
+#xlabel, #y1label, #y2label{
+    font-weight: bold;  
 }
     </style>
 <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -64,12 +67,17 @@
   <h1>Line Chart test</h1>
 
   <p id="chart" style="font-size: 12px; font-weight: bold; font-family: Helvetica;"></p>
-
+  <figcaption><strong>Visual 2 – Australia’s GDP vs total waste output over the years.</strong>
+  </figcaption>
   <p id="greenPara">Green line uses left y axis</p>
   <p id="redPara">Red line uses right y axis</p>
   <div id="tooltip" class="hidden">
     <p><strong>Year: </strong><span id="year"></span></p>
-    <p><strong>Amount: </strong><span id="value"></span></p>
+    <p><strong>Waste Output: </strong><span id="waste"></span></p>
+  </div>
+  <div id="tooltip1" class="hidden">
+    <p><strong>Year: </strong><span id="year"></span></p>
+    <p><strong>GDP $(M): </strong><span id="value"></span></p>
   </div>
 <footer>COS300045 Data Visualisation<br/>By Shane Turville</footer>
 </body>
