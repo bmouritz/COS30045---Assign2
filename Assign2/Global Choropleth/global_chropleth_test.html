@@ -67,6 +67,19 @@
     font-size: 16px;
     line-height: 20px;
   }
+  #viz_data {
+    padding: 10px;
+  }
+  #header_dials{
+    float: left;
+    display: grid;
+    grid-template-columns: 8% 77% 15%;
+  }
+  .text{
+    vertical-align: middle;
+    text-align: center;
+  }
+
 </style>
 
 </style>
@@ -78,24 +91,34 @@
 <script src="scripts/generate_map.js"></script>
 <script src="scripts/script.js"></script>
 <body>
-  <h1 id="title">Global Choropleth showing GDP for the year 2017</h1>
+  <h1 id="title">Global Choropleth</h1>
 
-  <!-- <button type="button" id="ttBtn">Clear Tooltips</button> -->
-  <div id="slider"></div>
-
-  <div id="visualisation">
+  <div id="header_dials"> <!-- header container for legend, slider and drop down menu -->
     <div id="legend"></div>
-
-    <!-- <p id="value"></p> -->
-
-    <p id="map"></p>
-
-    <div id="tooltip" class="hidden">
-      <p><strong>Country: </strong><span id="country"></span></p>
-      <p><strong>Year: </strong><span id="year"></span></p>
-      <p><strong>Amount: </strong><span id="value"></span></p>
+    <div>
+      <div class="text">Select year:</div>
+      <div id="slider"></div>
+    </div>
+    <div>
+      <div class="text">Select data type:</div>
+      <select id="viz_data">
+        <option value="GDP">GDP (USD 2010)</option>
+        <option value="Waste">Waste output (Tonnes)</option>
+        <option value="Ratio">GDP vs Waste ratio</option>
+      </select>
     </div>
   </div>
+
+  <div id="visualisation"> <!-- visualisation container -->
+    <p id="map"></p> <!-- choropleth container -->
+    <div id="tooltip" class="hidden"> <!-- tooltip container  -->
+      <p><strong>Country: </strong><span id="country"></span></p>
+      <p><strong>Year: </strong><span id="year"></span></p>
+      <p id="data_medium"><strong></strong><span id="value"></span></p>
+    </div>
+  </div>
+
+  <h1 id="vis_footnote"></h1>
 
   <footer>COS300045 Data Visualisation<br/>By Shane Turville</footer>
 </body>
