@@ -65,7 +65,7 @@ function generateMap(dataString, countryColour, yearSelected) {
           Country: d.Country,
           alpha_3_code: d.alpha_3_code,
           Year: d.Year,
-          AMOUNT: d.Waste_per_1000_Tonnes
+          AMOUNT: d.Waste_Tonnes
         }
       });
     } else if (dataVisSelected == "Ratio"){
@@ -75,6 +75,7 @@ function generateMap(dataString, countryColour, yearSelected) {
           alpha_3_code: d.alpha_3_code,
           Year: d.Year,
           AMOUNT: d.Ratio
+          // AMOUNT: d.GDP_USD / d.Waste_Tonnes // Deriving the ratio of GDP vs Waste programmatically
         }
       });
     }
@@ -109,11 +110,10 @@ function generateMap(dataString, countryColour, yearSelected) {
         }
       }
 
-      // console.log(min + " " + max);
-
       //Set input domain for colour scale dynamically
-      var countryColourQuantized = d3.scaleQuantize().range(countryColour);
-      countryColourQuantized.domain([min,max]);
+      var countryColourQuantized = d3.scaleQuantize()
+        .range(countryColour)
+        .domain([min,max]);
 
       //Bind data and create one path per GeoJSON feature
       svg.selectAll("path")
@@ -171,6 +171,18 @@ function generateMap(dataString, countryColour, yearSelected) {
           d3.select("#tooltip")
             .select("#value")
             .text('N/A'); // Set to N/A if no amount in data
+          }
+
+          // Set data type of tooltip
+          if(dataVisSelected == "GDP"){
+            d3.select("#data_medium_pre").text("$");
+            d3.select("#data_medium_post").text("");
+          } else if (dataVisSelected == "Waste"){
+            d3.select("#data_medium_pre").text("");
+            d3.select("#data_medium_post").text(" Tonnes");
+          } else if (dataVisSelected == "Ratio"){
+            d3.select("#data_medium_pre").text("");
+            d3.select("#data_medium_post").text(" : 1");
           }
 
           //Show the tooltip

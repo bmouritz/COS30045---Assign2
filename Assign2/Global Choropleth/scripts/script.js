@@ -11,7 +11,7 @@
 function init() {
 
   // var dataString = "./data/global_vis_data.csv"; // Path to data source
-  var dataString = "./data/global_vis_data (Test data in other columns).csv";
+  var dataString = "./data/global_vis_data - real waste data and ratio.csv";
   var dataVisSelected = "GDP"; // Default data for visualisation
   var minYear = 1960, maxYear = 2017; // Declare min/max years from dataset
   var yearSelected = 2017; // Set default selected year
@@ -53,7 +53,7 @@ function init() {
       vis_footnote_text = "GDP (USD 2010) per Country for " + yearSelected;
     } else if (dataVisSelected == "Waste"){
       colourScheme = WasteColorScheme;
-      vis_footnote_text = "Waste output (per 1000 Tonnes) per Country for " + yearSelected;
+      vis_footnote_text = "Waste output (Tonnes) per Country for " + yearSelected;
     } else if (dataVisSelected == "Ratio"){
       colourScheme = RatioColorScheme;
       vis_footnote_text = "Ratio of Gross Domestic Product (USD 2010) vs. Waste Output (Tonnes) for " + yearSelected;

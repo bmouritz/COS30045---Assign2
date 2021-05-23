@@ -1,7 +1,3 @@
-// Fix colour scheme flipping everytime - CPME BACK TO
-// Set legend title dynamically
-// Change format of numbers to $ when selection = GDP
-
 function generateLegend(min, max, colorScheme){
 
   var w = 100;
@@ -20,7 +16,7 @@ function generateLegend(min, max, colorScheme){
     legendLabel = "GDP ($US)";
   } else if (dataVisSelected == "Waste"){
     format = d3.format("0.2s");
-    legendLabel = "Waste (k Ton's)";
+    legendLabel = "Waste (Tonnes)";
   } else if (dataVisSelected == "Ratio"){
     format = d3.format("0.2s");
     legendLabel = "Ratio ($ vs W)";
@@ -43,12 +39,16 @@ function generateLegend(min, max, colorScheme){
 
   // labels.reverse(); // Reverse labals so larger numbers are at the top of legend
   // var countryColourQuantized = d3.scaleQuantize().range(colorScheme.reverse()).domain([min,max]); // Reverse colorScheme so more saturated tones are at the top of legend
-  var countryColourQuantized = d3.scaleQuantize().range(colorScheme).domain([min,max])
+  var countryColourQuantized = d3.scaleQuantize().range(colorScheme).domain([min,max]);
 
   // Set up colour scale dynamically
-  var colorScale = d3.scaleThreshold()
-      .domain([min,num2,num3,num4,max])
-      .range(colorScheme);
+  // var colorScale = d3.scaleThreshold()
+  //     .domain([min,num2,num3,num4,max])
+  //     .range(colorScheme);
+
+    var colorScale = d3.scaleQuantize()
+        .domain([min,max])
+        .range(colorScheme);
 
   var g = svg.append("g")
       .attr("class", "legendThreshold")
