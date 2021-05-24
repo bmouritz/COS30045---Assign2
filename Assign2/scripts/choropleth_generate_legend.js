@@ -11,15 +11,41 @@ function generateLegend(min, max, colorScheme){
   var format = d3.format("0.2s"); // Default
   var legendLabel = "GDP ($US)"; // Default
   var dataVisSelected = document.getElementById("viz_data").value;
+
+  // sets variables to 0 if no data in dataset
+  var isDataMissing = function(){
+    min = 0;
+    num2 = 0;
+    num3 = 0;
+    num4 = 0;
+    max = 0;
+  }
+
+  // Sets dynamic labels and formats if the data exists
   if(dataVisSelected == "GDP"){
-    format = d3.format("0.2s");
     legendLabel = "GDP ($US)";
+    if(max) {
+      format = d3.format("0.2s");
+    } else {
+      isDataMissing();
+      format = d3.format("");
+    }
   } else if (dataVisSelected == "Waste"){
-    format = d3.format("0.2s");
     legendLabel = "Waste (Tonnes)";
+    if(max) {
+      format = d3.format("0.2s");
+    } else {
+      isDataMissing();
+      format = d3.format("");
+    }
   } else if (dataVisSelected == "Ratio"){
-    format = d3.format("0.2s");
     legendLabel = "Ratio ($ vs W)";
+    if(max) {
+      format = d3.format("0.2s");
+    } else {
+      isDataMissing();
+      format = d3.format("");
+    }
   }
 
   // Use the above defined format to formate the legend's labals
