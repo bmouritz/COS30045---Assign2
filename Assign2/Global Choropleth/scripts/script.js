@@ -9,21 +9,21 @@ function init() {
   d3.select("#vis_footnote").text(vis_footnote_text); // Default
 
   // Define colour schemes
-  var GdpColorScheme = [
+  var GdpColorScheme = [ // Greens
     "rgb(237,248,233)",
     "rgb(186,228,179)",
     "rgb(116,196,118)",
     "rgb(49,163,84)",
     "rgb(0,109,44)"
   ];
-  var WasteColorScheme = [
+  var WasteColorScheme = [ // Oranges
     "rgb(254,237,222)",
     "rgb(253,190,133)",
     "rgb(253,141,60)",
     "rgb(230,85,13)",
     "rgb(166,54,3)"
   ];
-  var RatioColorScheme = [
+  var RatioColorScheme = [ //Bluess
     "rgb(239,243,255)",
     "rgb(189,215,231)",
     "rgb(107,174,214)",
