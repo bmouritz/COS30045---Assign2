@@ -45,8 +45,8 @@ function lineChart(dataset, dataset1) {
 
   var svg = d3.select("#chart")
     .append("svg")
-    .attr("width",w + padding + padding)
-    .attr("height",h);
+    .attr("width", w + 100)
+    .attr("height", h);
 
   // Append the left axis line
   svg.append("path")
@@ -78,6 +78,7 @@ function lineChart(dataset, dataset1) {
   y2Axis = d3.axisRight()
     .scale(y2Scale)
     .ticks(10);
+
 
   svg.append("g")
     .attr("class", "axis")
@@ -142,7 +143,7 @@ function lineChart(dataset, dataset1) {
   svg.append("text")
     .attr("id", "y2label")
     .attr("text-anchor", "middle")
-    .attr("y", -w - 82)
+    .attr("y", -w - 100)
     .attr("x", h / 2)
     .attr("dy", ".75em")
     .attr("transform", "rotate(90)")
