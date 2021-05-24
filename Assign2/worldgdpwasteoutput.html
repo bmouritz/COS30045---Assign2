@@ -10,7 +10,7 @@
 
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
-        
+
         <script src="https://d3js.org/d3.v4.min.js"></script>
         <script src="https://d3js.org/d3-scale-chromatic.v0.3.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
@@ -21,7 +21,7 @@
 
         <title>World GDP vs Waste Output</title>
     </head>
-    <body>  
+    <body>
         <div id="header">
             <div id="headerbackingaccent"></div>
             <div id="headerbacking">
@@ -35,10 +35,12 @@
             <h2>World GDP vs Waste Output</h2>
         </div>
         <div class="center" id="divbox">
-            <p id="textvis">For this visualisation we investigate the waste outputs/waste output types over years by Australian States/Territories.<br/>
-            We have the States/Territories on the X axis, and Amount of waste on the Y axis.<br/>
-            The two dropdowns can be used to interact with the data and view different years and/or waste types in depth.<br/>
-            In addition to this tooltips are available for specific numbers when hovering over a State/Territory.<br/>
+            <p id="textvis">This visualisation seeks to explore the relationship between GDP and waste output per country.<br/>
+            The slider allows you to choose the year and the dropdown allows you to choose the metric that you wish to display on the Choropleth.<br/>
+            The GDP data retrieved from <a href="https://ourworldindata.org/grapher/gross-domestic-product?time=latest">Our World in Data</a> offers the <span style="color: green">green</span> metric.<br/>
+            The Waste output data retrieved from <a href="https://data.un.org/Data.aspx?d=ENV&f=variableID%3A1814">The UN</a> offers the <span style="color: orange">orange</span> metric.<br/>
+            The <span style="color: blue">Ratio</span> is derived by dividing the GDP by the Waste output of a Country to determine "<em>For each tonne of waste the country produces this much gross product</em>".
+            Hovering over a country will highlight it against the others and clicking on a country will offer an informative tooltip that displays Country, year and metric amount.<br/>
             <br/>
             </p>
         </div>
@@ -59,7 +61,7 @@
                 </select>
                 </div>
             </div>
-            </div>   
+            </div>
             <div id="visualisation"> <!-- visualisation container -->
                 <figure class="center">
                     <p id="map"></p> <!-- choropleth container -->
@@ -78,5 +80,5 @@
             <p id="footertext">COS30045 Data Visualisation<br/>
 			 <a id="whitelink" href="https://www.linkedin.com/in/benjamin-mouritz-2031794b/">Ben Mouritz 102046051</a> / <a id="whitelink" href="https://www.linkedin.com/in/shane-turville-60a5751a1/">Shane Turville 102088422</a></p>
         </footer>
-    </body> 
+    </body>
 </html>
