@@ -12,7 +12,12 @@
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
         
         <script src="https://d3js.org/d3.v4.min.js"></script>
-		<script src="./scripts/kerbsidewaste.js"></script>
+        <script src="https://d3js.org/d3-scale-chromatic.v0.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
+        <script src="https://unpkg.com/d3-simple-slider"></script>
+        <script src="./scripts/generate_legend.js"></script>
+        <script src="./scripts/generate_map.js"></script>
+        <script src="./scripts/script.js"></script>
 
         <title>World GDP vs Waste Output</title>
     </head>
@@ -29,11 +34,44 @@
         <div>
             <h2>World GDP vs Waste Output</h2>
         </div>
-        <div>
-            
+        <div class="center" id="divbox">
+            <p id="textvis">For this visualisation we investigate the waste outputs/waste output types over years by Australian States/Territories.<br/>
+            We have the States/Territories on the X axis, and Amount of waste on the Y axis.<br/>
+            The two dropdowns can be used to interact with the data and view different years and/or waste types in depth.<br/>
+            In addition to this tooltips are available for specific numbers when hovering over a State/Territory.<br/>
+            <br/>
+            </p>
         </div>
-		<div id="divdiv">
-			<p id="wasteChart"></p>
+        <div style="max-height: 90h;">
+            <div class="center" style="padding-left: 6rem;">
+                <div id="header_dials"> <!-- header container for legend, slider and drop down menu -->
+                    <div id="legend"></div>
+                    <div>
+                    <div class="text">Select year:</div>
+                    <div id="slider"></div>
+                    </div>
+                <div>
+                <div class="text">Select data type:</div>
+                <select id="viz_data">
+                    <option value="GDP">GDP (USD 2010)</option>
+                    <option value="Waste">Waste output (Tonnes)</option>
+                    <option value="Ratio">GDP vs Waste ratio</option>
+                </select>
+                </div>
+            </div>
+            </div>   
+            <div id="visualisation"> <!-- visualisation container -->
+                <figure class="center">
+                    <p id="map"></p> <!-- choropleth container -->
+                    <figcaption><strong>Visual 3 - </strong><strong id="vis_footnote"></strong>
+                    </figcaption>
+                </figure>
+            </div>
+            <div id="tooltip" class="hidden"> <!-- tooltip container  -->
+                <p><strong>Country: </strong><span id="country"></span></p>
+                <p><strong>Year: </strong><span id="year"></span></p>
+                <p><strong>Amount: </strong><span id="data_medium_pre"></span><span id="value"></span><span id="data_medium_post"></span></p>
+            </div>
         </div>
 		<br/>
 		<footer>

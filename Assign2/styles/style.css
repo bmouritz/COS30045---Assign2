@@ -17,8 +17,12 @@ body{
     width:100%;
 }
 
-p{
+p, label, figcaption{
     font-family: 'Source Sans Pro', sans-serif;
+}
+
+label, figcaption {
+    font-weight: bold;
 }
 
 #whitelink{
@@ -170,9 +174,6 @@ figcaption {
     text-align: center;
 }
 
-.center{
-    text-align: center;  
-}
 
 #xlabel, #ylabel, #y1label, #y2label {
     font-weight: bold;  
@@ -222,3 +223,76 @@ figcaption {
     stroke-width: 1;
 }
 
+a{
+    color: #333399;
+}
+a:hover{
+    color: #FF0099;
+}
+
+.states {
+    stroke: #fff;
+    stroke-width:1px;
+}
+.states:hover{
+    opacity: .6;
+}
+
+.legendLinear text {
+    font-size: 12px;
+}
+.d3-tip {
+    line-height: 1;
+    padding: 12px;
+    background: rgba(43,43,43, 0.8);
+    color: #fff;
+    border-radius: 2px;
+}
+#map{
+    border: 1px solid #CCC;
+}
+#map, #legend{
+    font-size: 12px;
+    font-family: Helvetica;
+}
+
+#viz_data {
+    padding: 10px;
+}
+#header_dials{
+    float: left;
+    display: grid;
+    grid-template-columns: 8% 77% 15%;
+}
+.text{
+    vertical-align: middle;
+    text-align: center;
+}
+
+.center{
+    text-align: center;  
+}
+
+#map{
+    background-color: #ADD8E6;
+}
+
+#visualisation{
+    background-color: #fff;
+}
+
+#divbox{
+    width:70%;
+    background-color: white;
+    text-align: center;
+    margin: 0 auto;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    box-shadow: -1rem 0 3rem lightsteelblue;
+}
+
+#textvis{
+    padding:2rem;
+}
