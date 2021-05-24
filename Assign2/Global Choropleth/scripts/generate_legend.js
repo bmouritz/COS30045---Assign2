@@ -37,14 +37,7 @@ function generateLegend(min, max, colorScheme){
     .attr("width",w)
     .attr("height",h);
 
-  // labels.reverse(); // Reverse labals so larger numbers are at the top of legend
-  // var countryColourQuantized = d3.scaleQuantize().range(colorScheme.reverse()).domain([min,max]); // Reverse colorScheme so more saturated tones are at the top of legend
   var countryColourQuantized = d3.scaleQuantize().range(colorScheme).domain([min,max]);
-
-  // Set up colour scale dynamically
-  // var colorScale = d3.scaleThreshold()
-  //     .domain([min,num2,num3,num4,max])
-  //     .range(colorScheme);
 
     var colorScale = d3.scaleQuantize()
         .domain([min,max])

@@ -1,13 +1,3 @@
-// TO DO:
-// 1) Finish slider and pass year value into generateMap function - DONE
-// 2) Format legend and tooltip values - DONE
-// 3) Add 'Tonnes of Waste' and 'ratio' to dataset
-// 4) Make a dropdown to choose between different datasets
-// OPTIONAL:
-// 5) Change geoMercator
-// 6) Add cities if geoMercator selected
-
-
 function init() {
 
   // var dataString = "./data/global_vis_data.csv"; // Path to data source
@@ -18,8 +8,7 @@ function init() {
   var vis_footnote_text = "GDP (USD 2010) per Country for 2017"; // Text for data visualtisation footnote
   d3.select("#vis_footnote").text(vis_footnote_text); // Default
 
-
-  // initialise colour schemes
+  // Define colour schemes
   var GdpColorScheme = [
     "rgb(237,248,233)",
     "rgb(186,228,179)",

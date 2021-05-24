@@ -3,29 +3,11 @@ function generateMap(dataString, countryColour, yearSelected) {
   var w = 1000;
   var h = 600;
 
-  // Australia
-  // var projection = d3.geoMercator()
-  // .center([135, -26])
-  // .translate([w/2,h/2])
-  // .scale(600);
-
-  // Europe
-  // var projection = d3.geoMercator()
-  // .center([13, 52])
-  // .translate([w/2, h/2])
-  // .scale([w/1.5]);
-
-  // Global
+  // Global geoMercator
   var projection = d3.geoMercator()
   .center([20, 20])
   .translate([w/2,h/2])
   .scale(150);
-
-  // Australasia
-  // var projection = d3.geoMercator()
-  // .center([129, -21])
-  // .translate([w/2, h/2])
-  // .scale(w/2);
 
   var path = d3.geoPath()
     .projection(projection);
@@ -75,7 +57,6 @@ function generateMap(dataString, countryColour, yearSelected) {
           alpha_3_code: d.alpha_3_code,
           Year: d.Year,
           AMOUNT: d.Ratio
-          // AMOUNT: d.GDP_USD / d.Waste_Tonnes // Deriving the ratio of GDP vs Waste programmatically
         }
       });
     }
@@ -199,7 +180,7 @@ function generateMap(dataString, countryColour, yearSelected) {
         });
       });
 
-      // Create the Legend and pass min, max and colour scheme
-      generateLegend(min, max, countryColour);
+    // Create the Legend and pass min, max and colour scheme
+    generateLegend(min, max, countryColour);
     });
 };
