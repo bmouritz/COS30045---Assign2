@@ -1,11 +1,17 @@
 /*
 filename: [style.css]
-author: [Benjamin Mouritz]
+author: [Benjamin Mouritz / Shane Turville]
 created: [23.02.2021]
 last modified: [23.02.2021]
 description: [To apply CSS to the following pages: Assign2.html]
 */
+#greenPara {
+    color: green;
+}
 
+#redPara {
+    color: red;
+}
 body{
     margin: 0;
     width:100%;
@@ -146,7 +152,7 @@ footer {
     padding: 2rem;
 }
 
-#footertext{
+#footertext {
     font-family: 'Oswald', sans-serif; 
     font-weight: bold;
     text-align: center;
@@ -154,23 +160,11 @@ footer {
     font-size: 2rem;
 }
 
-.line{
-    fill:none;
-    stroke: slategray;
-    stroke-width: 1;
-}
-
-.line2{
-    fill:none;
-    stroke: black;
-    stroke-width: 1;
-}
-
-#wasteChart{
+#wasteChart, #chart2 {
     background-color: white;
 }
 
-figcaption{
+figcaption {
     padding-top: 2rem;
     padding-left: 3rem;
     text-align: center;
@@ -180,11 +174,15 @@ figcaption{
     text-align: center;  
 }
 
-#xlabel, #ylabel{
+#xlabel, #ylabel, #y1label, #y2label {
     font-weight: bold;  
 }
 
-#tooltip {
+.bold{
+    font-weight: bold;
+}
+
+#tooltip, #tooltip1 {
     position: absolute;
     width: 200px;
     height: auto;
@@ -201,13 +199,26 @@ figcaption{
     text-align: center;
 }
 
-#tooltip.hidden {
+#tooltip.hidden, #tooltip1.hidden {
     display: none;
 }
 
-#tooltip p {
+#tooltip p, #tooltip1 p {
     margin: 0;
     font-family: sans-serif;
     font-size: 16px;
     line-height: 20px;
 }
+
+.y1Line {
+    fill: none;
+    stroke: red;
+    stroke-width: 1;
+}
+
+.y2Line {
+    fill: none;
+    stroke: green;
+    stroke-width: 1;
+}
+

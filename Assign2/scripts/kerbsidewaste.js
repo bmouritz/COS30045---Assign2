@@ -38,7 +38,7 @@ function init(){
       .enter()
       .append('option')
       .text(function (d) { return d; }) // text showed in the menu
-      .attr("value", function (d) { return d; }) // corresponding value returned by the button
+      .attr("value", function (d) { return d; }); // corresponding value returned by the button
 
     // Populate dropdown dynamically with grouping of Waste data
     d3.select("#wasteType")
@@ -47,7 +47,7 @@ function init(){
       .enter()
       .append('option')
       .text(function (d) { return d; }) // text showed in the menu
-      .attr("value", function (d) { return d; }) // corresponding value returned by the button
+      .attr("value", function (d) { return d; }); // corresponding value returned by the button
     
     // function to draw the visuals
     var drawAll = function(){

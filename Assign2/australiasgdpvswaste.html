@@ -6,13 +6,14 @@
         <meta name="keywords" content="HTML, CSS, D3, Sustainability, Swinburne"/>
         <meta name="author" content="Ben Mouritz 102046051"/>
 
-        <link href= "styles/style.css" rel="stylesheet" />
+        <link href= "./styles/style.css" rel="stylesheet" />
 
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
         
-        <script src="https://d3js.org/d3.v4.min.js"></script>
-		<script src="./scripts/kerbsidewaste.js"></script>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="./scripts/functions.js"></script>
+        <script src="./scripts/line_chart.js"></script>
 
         <title>Australia's GDP vs Waste Output</title>
     </head>
@@ -29,11 +30,23 @@
         <div>
             <h2>Australia's GDP vs Waste Output</h2>
         </div>
-        <div>
-            
+        <div class="center">
+            <p>hello i am text</p>
+            <p id="greenPara">Green represents the GDP (right y axis)</p>
+            <p id="redPara">Red represents the waste output (left y axis)</p>
         </div>
-		<div id="divdiv">
-			<p id="wasteChart"></p>
+        <figure class="center">
+            <p id="chart2"></p>
+            <figcaption id="vis2"><strong>Visual 2 – Australia’s GDP vs total waste output over the years.</strong>
+            </figcaption>
+        </figure>
+        <div id="tooltip" class="hidden">
+          <p><strong>Year: </strong><span id="year"></span></p>
+          <p><strong>Waste Output: </strong><span id="waste"></span></p>
+        </div>
+        <div id="tooltip1" class="hidden">
+          <p><strong>Year: </strong><span id="year"></span></p>
+          <p><strong>GDP $(M): </strong><span id="value"></span></p>
         </div>
 		<br/>
 		<footer>
