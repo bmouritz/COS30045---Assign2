@@ -176,8 +176,8 @@ svg.append("text")
 
         // Position the tooltip
         d3.select("#tooltip")
-          .style("left", mouse[0] + "px")
-          .style("top", (d3.event.pageY - y) + "px")
+          .style("left", mouse[0] + 50 + "px")
+          .style("top", (d3.event.pageY - y) + 200 + "px")
           .select("#waste")
           .text(function() { return formatComma(d.value); }); // add commas to tooltip value
 
@@ -212,8 +212,8 @@ svg.append("text")
 
         // Position the tooltip
         d3.select("#tooltip1")
-          .style("left", mouse[0] + "px")
-          .style("top", (d3.event.pageY - y) + "px")
+          .style("left", mouse[0] + 50 + "px")
+          .style("top", (d3.event.pageY - y) + 200 + "px")
           .select("#value")
           .text(function() { return formatComma(d.value); }); // add commas to tooltip value
 
