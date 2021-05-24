@@ -24,6 +24,18 @@ function generateMap(dataString, countryColour, yearSelected) {
   d3.csv(dataString, (error, data) => {
     if (error) return console.error(error); // Throw error if csv not found
 
+    // Get grouping of Year keys
+    allYears = d3.map(data, function(d){return(d.Year)}).keys();
+
+    // Populate dropdown dynamically with grouping of Year data
+    d3.select("#year")
+      .selectAll('myOptions')
+      .data(allYears.sort().reverse())
+      .enter()
+      .append('option')
+      .text(function (d) { return d; }) // text showed in the menu
+      .attr("value", function (d) { return d; }); // corresponding value returned by the button
+
     //=========================== Data Manipulation =====================================
     data = data.filter(function(d) {
       return d.Year == yearSelected // filter the dataset down to the year selected by slider

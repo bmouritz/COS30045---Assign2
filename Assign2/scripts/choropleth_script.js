@@ -54,27 +54,13 @@ function init() {
     generateMap(dataString, colourScheme, yearSelected);
   };
 
-  // Set up slider and its functionality
-  var slider = d3.sliderHorizontal()
-  .min(minYear)
-  .max(maxYear)
-  .step(1)
-  .width(600)
-  .tickFormat(d3.format("d"))
-  .default(yearSelected)
-  .displayValue(true)
-  .on('onchange', val => {
-    yearSelected = val;
+  // Get the value of Year dropdown dynamically.
+  document.getElementById("year").addEventListener('change', function() {
+    yearSelected = document.getElementById("year").value;
     updateVariables();
     d3.selectAll(".vis").remove(); // Remove old visualisation
     updateVisualisations(); // update visualisations on slider update
   });
-  var g = d3.select("#slider").append("svg")
-  .attr("width", 700)
-  .attr("height", 120)
-  .append("g")
-  .attr("transform", "translate(30,30)")
-  .call(slider);
 
   // Drop down menu behavior
   document.getElementById("viz_data").addEventListener('change', function() {

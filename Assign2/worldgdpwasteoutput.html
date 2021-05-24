@@ -14,7 +14,6 @@
         <script src="https://d3js.org/d3.v4.min.js"></script>
         <script src="https://d3js.org/d3-scale-chromatic.v0.3.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
-        <script src="https://unpkg.com/d3-simple-slider"></script>
         <script src="./scripts/choropleth_generate_legend.js"></script>
         <script src="./scripts/choropleth_generate_map.js"></script>
         <script src="./scripts/choropleth_script.js"></script>
@@ -49,8 +48,9 @@
                 <div id="header_dials"> <!-- header container for legend, slider and drop down menu -->
                     <div id="legend"></div>
                     <div>
-                    <div class="text">Select year:</div>
-                    <div id="slider"></div>
+                        <label for="year">Select year:</label>
+                        <select name="year" id="year">
+                        </select>
                     </div>
                 <div>
                 <div class="text">Select data type:</div>

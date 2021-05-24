@@ -65,7 +65,7 @@ function generateLegend(min, max, colorScheme){
 
   var countryColourQuantized = d3.scaleQuantize().range(colorScheme).domain([min,max]);
 
-    var colorScale = d3.scaleQuantize()
+  var colorScale = d3.scaleQuantize()
         .domain([min,max])
         .range(colorScheme);
 
