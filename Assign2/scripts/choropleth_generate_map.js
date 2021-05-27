@@ -1,6 +1,7 @@
 function generateMap(dataString, countryColour, yearSelected) {
 
-  var w = 1350;
+  // var w = 1350;
+  var w = window.screen.width / 2;
   var h = 400;
 
   // Global geoMercator
@@ -147,7 +148,7 @@ function generateMap(dataString, countryColour, yearSelected) {
           // Set x,y of tooltip and set text of country
           d3.select("#tooltip")
             .style('left', mouse[0] - 100 + `px`) // Use mouse x coordinates to draw text box offset by mox width
-            .style("top", (d3.event.pageY - y) - 80 + "px") // Use mouse y coordinates to draw text box offset by slider and legend
+            .style("top", mouse[1] + 850 + "px") // Use mouse y coordinates to draw text box offset by slider and legend
             .select("#country")
             .text(selected);
 

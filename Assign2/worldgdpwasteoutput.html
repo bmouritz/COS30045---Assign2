@@ -1,84 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8"/>
-        <meta name="description" content="Data Visualisation Assignment 2"/>
-        <meta name="keywords" content="HTML, CSS, D3, Sustainability, Swinburne"/>
-        <meta name="author" content="Ben Mouritz 102046051"/>
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="description" content="Data Visualisation Assignment 2"/>
+  <meta name="keywords" content="HTML, CSS, D3, Sustainability, Swinburne"/>
+  <meta name="author" content="Ben Mouritz 102046051"/>
 
-        <link href= "styles/style.css" rel="stylesheet" />
+  <link href= "styles/style.css" rel="stylesheet" />
 
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
 
-        <script src="https://d3js.org/d3.v4.min.js"></script>
-        <script src="https://d3js.org/d3-scale-chromatic.v0.3.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
-        <script src="./scripts/choropleth_generate_legend.js"></script>
-        <script src="./scripts/choropleth_generate_map.js"></script>
-        <script src="./scripts/choropleth_script.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://d3js.org/d3-scale-chromatic.v0.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
+  <script src="./scripts/choropleth_generate_legend.js"></script>
+  <script src="./scripts/choropleth_generate_map.js"></script>
+  <script src="./scripts/choropleth_script.js"></script>
 
-        <title>World GDP vs Waste Output</title>
-    </head>
-    <body>
-        <div id="header">
-            <div id="headerbackingaccent"></div>
-            <div id="headerbacking">
-                <h1 id="h1top">Sustainability: <em>Waste</em></h1>
-            </div>
-       </div>
-       <div id="menubacking">
-        <p id="menutext"><a id="whitelink" href="index.html">Home</a> | <a id="whitelink" href="./statewasteoutput.html">State Waste Output</a> | <a id="whitelink" href="./australiasgdpvswaste.html">Australia's GDP vs Waste Output</a> | <a id="whitelink" href="./worldgdpwasteoutput.html">World GDP vs Waste Output</a> </p>
+  <title>World GDP vs Waste Output</title>
+</head>
+<body>
+  <div id="header">
+    <div id="headerbackingaccent"></div>
+    <div id="headerbacking">
+      <h1 id="h1top">Sustainability: <em>Waste</em></h1>
     </div>
+  </div>
+  <div id="menubacking">
+    <p id="menutext"><a id="whitelink" href="index.html">Home</a> | <a id="whitelink" href="./statewasteoutput.html">State Waste Output</a> | <a id="whitelink" href="./australiasgdpvswaste.html">Australia's GDP vs Waste Output</a> | <a id="whitelink" href="./worldgdpwasteoutput.html">World GDP vs Waste Output</a> </p>
+  </div>
+  <div>
+    <h2>World GDP vs Waste Output</h2>
+  </div>
+  <div class="center" id="divbox">
+    <p id="textvis">This visualisation seeks to explore the relationship between GDP and waste output per country.<br/>
+      The slider allows you to choose the year and the dropdown allows you to choose the metric that you wish to display on the Choropleth.<br/>
+      The GDP data retrieved from <a href="https://ourworldindata.org/grapher/gross-domestic-product?time=latest">Our World in Data</a> offers the <span style="color: green">green</span> metric.<br/>
+      The Waste output data retrieved from <a href="https://data.un.org/Data.aspx?d=ENV&f=variableID%3A1814">The UN</a> offers the <span style="color: orange">orange</span> metric.<br/>
+      The <span style="color: blue">Ratio</span> is derived by dividing the GDP by the Waste output of a Country to determine "<em>For each tonne of waste the country produces this much gross product</em>".
+      Hovering over a country will highlight it against the others and clicking on a country will offer an informative tooltip that displays Country, year and metric amount.<br/>
+      <br/>
+    </p>
+  </div>
+  <div style="max-height: 90h;">
+    <div class="center" style="padding-left: 6rem;">
+      <div id="header_dials"> <!-- header container for legend, slider and drop down menu -->
+        <div id="legend"></div>
         <div>
-            <h2>World GDP vs Waste Output</h2>
+          <br />
+          <label for="year">Select year:</label><br/>
+          <select name="year" id="year">
+          </select>
         </div>
-        <div class="center" id="divbox">
-            <p id="textvis">This visualisation seeks to explore the relationship between GDP and waste output per country.<br/>
-            The slider allows you to choose the year and the dropdown allows you to choose the metric that you wish to display on the Choropleth.<br/>
-            The GDP data retrieved from <a href="https://ourworldindata.org/grapher/gross-domestic-product?time=latest">Our World in Data</a> offers the <span style="color: green">green</span> metric.<br/>
-            The Waste output data retrieved from <a href="https://data.un.org/Data.aspx?d=ENV&f=variableID%3A1814">The UN</a> offers the <span style="color: orange">orange</span> metric.<br/>
-            The <span style="color: blue">Ratio</span> is derived by dividing the GDP by the Waste output of a Country to determine "<em>For each tonne of waste the country produces this much gross product</em>".
-            Hovering over a country will highlight it against the others and clicking on a country will offer an informative tooltip that displays Country, year and metric amount.<br/>
-            <br/>
-            </p>
+        <div>
+          <br />
+          <label class="text" for="datatype">Select data type:</label><br/>
+          <select name="datatype" id="viz_data">
+            <option value="GDP">GDP (USD 2010)</option>
+            <option value="Waste">Waste output (Tonnes)</option>
+            <option value="Ratio">GDP vs Waste ratio</option>
+          </select>
         </div>
-        <div style="max-height: 90h;">
-            <div class="center" style="padding-left: 6rem;">
-                <div id="header_dials"> <!-- header container for legend, slider and drop down menu -->
-                    <div id="legend"></div>
-                    <div>
-                        <label for="year">Select year:</label>
-                        <select name="year" id="year">
-                        </select>
-                    </div>
-                <div>
-                <div class="text">Select data type:</div>
-                <select id="viz_data">
-                    <option value="GDP">GDP (USD 2010)</option>
-                    <option value="Waste">Waste output (Tonnes)</option>
-                    <option value="Ratio">GDP vs Waste ratio</option>
-                </select>
-                </div>
-            </div>
-            </div>
-            <div id="visualisation"> <!-- visualisation container -->
-                <figure class="center">
-                    <p id="map"></p> <!-- choropleth container -->
-                    <figcaption><strong>Visual 3 - </strong><strong id="vis_footnote"></strong>
-                    </figcaption>
-                </figure>
-            </div>
-            <div id="tooltip" class="hidden"> <!-- tooltip container  -->
-                <p><strong>Country: </strong><span id="country"></span></p>
-                <p><strong>Year: </strong><span id="year"></span></p>
-                <p><strong>Amount: </strong><span id="data_medium_pre"></span><span id="value"></span><span id="data_medium_post"></span></p>
-            </div>
-        </div>
-		<br/>
-		<footer>
-            <p id="footertext">COS30045 Data Visualisation<br/>
-			 <a id="whitelink" href="https://www.linkedin.com/in/benjamin-mouritz-2031794b/">Ben Mouritz 102046051</a> / <a id="whitelink" href="https://www.linkedin.com/in/shane-turville-60a5751a1/">Shane Turville 102088422</a></p>
-        </footer>
-    </body>
-</html>
+      </div>
+    </div>
+    <div id="visualisation"> <!-- visualisation container -->
+      <figure class="center">
+        <p id="map"></p> <!-- choropleth container -->
+        <figcaption>Visual 3 - <em id="vis_footnote"></em>
+        </figcaption>
+      </figure>
+    </div>
+    <div id="tooltip" class="hidden"> <!-- tooltip container  -->
+      <p><strong>Country: </strong><span id="country"></span></p>
+      <p><strong>Year: </strong><span id="year"></span></p>
+      <p><strong>Amount: </strong><span id="data_medium_pre"></span><span id="value"></span><span id="data_medium_post"></span></p>
+    </div>
+  </div>
+  <br/>
+  <footer>
+    <p id="footertext">COS30045 Data Visualisation<br/>
+      <a id="whitelink" href="https://www.linkedin.com/in/benjamin-mouritz-2031794b/">Ben Mouritz 102046051</a> / <a id="whitelink" href="https://www.linkedin.com/in/shane-turville-60a5751a1/">Shane Turville 102088422</a></p>
+    </footer>
+  </body>
+  </html>

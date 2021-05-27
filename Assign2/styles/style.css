@@ -82,7 +82,7 @@ label, figcaption {
 }
 
 #menutext{
-    font-family: 'Oswald', sans-serif; 
+    font-family: 'Oswald', sans-serif;
     color: white;
     text-align: center;
     font-size: 2rem;
@@ -157,7 +157,7 @@ footer {
 }
 
 #footertext {
-    font-family: 'Oswald', sans-serif; 
+    font-family: 'Oswald', sans-serif;
     font-weight: bold;
     text-align: center;
     color: white;
@@ -176,7 +176,7 @@ figcaption {
 
 
 #xlabel, #ylabel, #y1label, #y2label {
-    font-weight: bold;  
+    font-weight: bold;
 }
 
 .bold{
@@ -256,13 +256,13 @@ a:hover{
     font-family: Helvetica;
 }
 
-#viz_data {
+#viz_data, #year {
     padding: 10px;
 }
 #header_dials{
-    float: left;
+    float: center;
     display: grid;
-    grid-template-columns: 8% 77% 15%;
+    grid-template-columns: 30% 30% 30% 10%;
 }
 .text{
     vertical-align: middle;
@@ -270,15 +270,11 @@ a:hover{
 }
 
 .center{
-    text-align: center;  
+    text-align: center;
 }
 
 #map{
     background-color: #ADD8E6;
-}
-
-#visualisation{
-    background-color: #fff;
 }
 
 #divbox{
