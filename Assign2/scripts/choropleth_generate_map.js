@@ -39,7 +39,7 @@ function generateMap(dataString, countryColour, yearSelected) {
 
     //=========================== Data Manipulation =====================================
     data = data.filter(function(d) {
-      return d.Year == yearSelected // filter the dataset down to the year selected by slider
+      return d.Year == yearSelected // filter the dataset down to the year selected by user
       && d.alpha_3_code.length == 3 // and remove aggregate amounts
     });
 
@@ -148,7 +148,7 @@ function generateMap(dataString, countryColour, yearSelected) {
           // Set x,y of tooltip and set text of country
           d3.select("#tooltip")
             .style('left', mouse[0] - 100 + `px`) // Use mouse x coordinates to draw text box offset by mox width
-            .style("top", mouse[1] + 850 + "px") // Use mouse y coordinates to draw text box offset by slider and legend
+            .style("top", mouse[1] + 850 + "px") // Use mouse y coordinates to draw text box offset by sliddrop downs and legend
             .select("#country")
             .text(selected);
 

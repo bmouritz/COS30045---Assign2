@@ -59,14 +59,14 @@ function init() {
     yearSelected = document.getElementById("year").value;
     updateVariables();
     d3.selectAll(".vis").remove(); // Remove old visualisation
-    updateVisualisations(); // update visualisations on slider update
+    updateVisualisations(); // update visualisations on user input
   });
 
   // Drop down menu behavior
   document.getElementById("viz_data").addEventListener('change', function() {
     updateVariables();
     d3.selectAll(".vis").remove(); // Remove old visualisation
-    updateVisualisations(); // upadte visualisations on slider update
+    updateVisualisations(); // upadte visualisations on user input
   });
 
   // Initial generation of visualisation
