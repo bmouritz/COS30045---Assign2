@@ -147,8 +147,8 @@ function generateMap(dataString, countryColour, yearSelected) {
 
           // Set x,y of tooltip and set text of country
           d3.select("#tooltip")
-            .style('left',  mouse[0] + `px`) // Use mouse x coordinates to draw text box offset by mox width
-            .style("top", y + mouse[1] + window.scrollY - 80 + "px") // Use mouse y coordinates to draw text box offset 
+            .style('left',  d3.event.pageX + `px`) // Use mouse x coordinates to draw text box offset by mox width
+            .style("top", y + mouse[1] + window.scrollY - 80 + "px") // Use mouse y coordinates to draw text box offset
             .select("#country")
             .text(selected);
 
