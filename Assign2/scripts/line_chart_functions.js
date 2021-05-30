@@ -15,11 +15,11 @@ function lineChart(dataset, dataset1) {
     .key(function(d) { return d.Year; })
     .rollup(function(v) { return d3.sum(v, function(d) { return d.Amount; }); })
     .entries(dataset1);
-  
+
   // xScaling
   xScale = d3.scaleTime()
-  .domain(d3.extent(dataset1, function(d) { 
-    return new Date(d.key); 
+  .domain(d3.extent(dataset1, function(d) {
+    return new Date(d.key);
   }))
   .range([padding, w-29]);
 
@@ -169,35 +169,35 @@ svg.append("text")
         var mouse = d3.mouse(this);
         // Get top location of chart element
         var y = document.getElementById("chart2").getBoundingClientRect().top;
-              
+
         var formatComma = d3.format(",");
         var formatYear = d3.timeFormat("%Y");
         d3.select(this).style("opacity", 1);
 
         // Position the tooltip
         d3.select("#tooltip")
-          .style("left", mouse[0] + 50 + "px")
-          .style("top", (d3.event.pageY - y) + 200 + "px")
+          .style('left',  d3.event.pageX - 50 + `px`) // Use mouse x coordinates to draw text box offset by box width
+          .style("top", y + mouse[1] + window.scrollY - 50 + "px") // Use mouse y coordinates to draw text box offset
           .select("#waste")
           .text(function() { return formatComma(d.value); }); // add commas to tooltip value
 
         d3.select("#tooltip")
           .select("#year")
           .text(function() { return formatYear(new Date(d.key)); }); // add commas to tooltip value
-                
-        //Show the tooltip 
+
+        //Show the tooltip
         d3.select("#tooltip")
-          .classed("hidden", false ); 
+          .classed("hidden", false );
 
       }).style("fill", "red")
       .style("opacity", 0.6)
-      .on("mouseout", function () { 
+      .on("mouseout", function () {
         d3.select(this).style("opacity", 0.6);
-        //Hide the tooltip 
+        //Hide the tooltip
         d3.select("#tooltip")
           .classed("hidden", true );
       });
-    
+
     // Hover for GDP
     svg.selectAll("#gdpcircle")
       .on("mouseover", function(d){
@@ -205,31 +205,31 @@ svg.append("text")
         var mouse = d3.mouse(this);
         // Get top location of chart element
         var y = document.getElementById("chart2").getBoundingClientRect().top;
-              
+
         var formatComma = d3.format(",");
         var formatYear = d3.timeFormat("%Y");
         d3.select(this).style("opacity", 1);
 
         // Position the tooltip
         d3.select("#tooltip1")
-          .style("left", mouse[0] + 50 + "px")
-          .style("top", (d3.event.pageY - y) + 200 + "px")
+          .style('left',  d3.event.pageX - 50 + `px`) // Use mouse x coordinates to draw text box offset by box width
+          .style("top", y + mouse[1] + window.scrollY - 50 + "px") // Use mouse y coordinates to draw text box offset
           .select("#value")
           .text(function() { return formatComma(d.value); }); // add commas to tooltip value
 
         d3.select("#tooltip1")
           .select("#year")
           .text(function() { return formatYear(new Date(d.key)); }); // add commas to tooltip value
-                
-        //Show the tooltip 
+
+        //Show the tooltip
         d3.select("#tooltip1")
-          .classed("hidden", false ); 
+          .classed("hidden", false );
 
       }).style("fill", "green")
       .style("opacity", 0.6)
-      .on("mouseout", function () { 
+      .on("mouseout", function () {
         d3.select(this).style("opacity", 0.6);
-        //Hide the tooltip 
+        //Hide the tooltip
         d3.select("#tooltip1")
           .classed("hidden", true );
       });
